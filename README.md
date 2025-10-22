@@ -635,7 +635,7 @@ git push origin main
 3. **デプロイ完了** → 2〜5分
 
 **確認URL**:
-- Vercel ダッシュボード: https://vercel.com/tokomaramuki1234/mitsulu-homepage
+- Vercel ダッシュボード: https://vercel.com/tokomaramukis-projects/mitsulu-homepage
 - 本番サイト: https://mitsulu.style
 
 ---
