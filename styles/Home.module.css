@@ -1,6 +1,11 @@
 /* ==========================================
-   三流（Mitsuryū）LP Stylesheet - Flat CMYK Design
-   テーマ: シンプル・フラット・CMYKカラー
+   三流（Mitsuryū）LP Stylesheet - Flat Design
+   テーマ: シンプル・フラット
+   
+   カラーパレット:
+   メインカラー: #EAE33C (Yellow), #248EC6 (Cyan), #CD2272 (Magenta)
+   セミメインカラー: #0A0F0F (Black), #FFFFFF (White)
+   サブカラー: #1B2B59 (Navy), #D1221A (Red), #208B3B (Green)
 ========================================== */
 
 /* ==========================================
@@ -19,7 +24,7 @@
   position: absolute;
   top: -100px;
   left: 0;
-  background: #00A1C9;
+  background: #248EC6;
   color: white;
   padding: 0.5rem 1rem;
   z-index: 1000;
@@ -39,7 +44,7 @@
   top: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #00A1C9 0%, #E60012 50%, #FFF100 100%);
+  background: linear-gradient(90deg, #248EC6 0%, #CD2272 50%, #EAE33C 100%);
   z-index: 9999;
   transition: width 0.1s ease;
 }
@@ -91,7 +96,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #00A1C9;
+  background-color: #248EC6;
   color: white !important;
   padding: 1rem 2.5rem;
   border-radius: 50px;
@@ -104,7 +109,7 @@
 }
 
 .ctaButton:hover {
-  background-color: #0088AD;
+  background-color: #1B2B59;
   transform: translateY(-2px);
 }
 
@@ -124,7 +129,7 @@
   display: block;
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #00A1C9, #E60012, #FFF100);
+  background: linear-gradient(90deg, #248EC6, #CD2272, #EAE33C);
   margin: 1rem auto 0;
   border-radius: 2px;
 }
@@ -337,7 +342,7 @@
 
 .accordionHeader i:first-child {
   font-size: 1.5rem;
-  color: #00A1C9;
+  color: #248EC6;
 }
 
 .accordionHeader span {
@@ -385,7 +390,7 @@
   content: '✓';
   position: absolute;
   left: 0;
-  color: #00A1C9;
+  color: #248EC6;
   font-weight: bold;
 }
 
@@ -441,12 +446,12 @@
 
 .philosophyIcons i {
   font-size: 3rem;
-  color: #00A1C9;
+  color: #248EC6;
   transition: all 0.3s ease;
 }
 
 .philosophyIcons i:hover {
-  color: #E60012;
+  color: #CD2272;
   transform: scale(1.2);
 }
 
@@ -502,12 +507,12 @@
 
 .contactIcons i {
   font-size: 5rem;
-  color: #00A1C9;
+  color: #248EC6;
   transition: all 0.3s ease;
 }
 
 .contactIcons i:hover {
-  color: #E60012;
+  color: #CD2272;
   transform: scale(1.1);
 }
 
@@ -515,7 +520,7 @@
    12. Footer
 ========================================== */
 .footer {
-  background-color: #333333;
+  background-color: #0A0F0F;
   padding: 3rem 0 1.5rem;
   color: white;
 }
@@ -554,13 +559,13 @@
 }
 
 .footerLeft a {
-  color: #00A1C9;
+  color: #248EC6;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footerLeft a:hover {
-  color: #FFF100;
+  color: #EAE33C;
 }
 
 .footerRight {
@@ -590,7 +595,7 @@
   right: 30px;
   width: 50px;
   height: 50px;
-  background-color: #00A1C9;
+  background-color: #248EC6;
   color: white;
   border: none;
   border-radius: 50%;
@@ -611,7 +616,7 @@
 }
 
 .backToTop:hover {
-  background-color: #E60012;
+  background-color: #CD2272;
   transform: translateY(-5px);
 }
 

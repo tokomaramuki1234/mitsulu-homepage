@@ -8,13 +8,13 @@ const services = [
     items: [
       {
         icon: 'fas fa-bullseye',
-        color: '#00A1C9', // Cyan
+        color: '#248EC6', // メインカラー：Cyan
         title: 'ファシリテーション',
         description: '会議や研修を前向きに進めるお手伝い'
       },
       {
         icon: 'fas fa-puzzle-piece',
-        color: '#E60012', // Magenta
+        color: '#CD2272', // メインカラー：Magenta
         title: '企画・研修',
         description: 'チームビルディングや社員研修の企画運営'
       }
@@ -26,19 +26,19 @@ const services = [
     items: [
       {
         icon: 'fas fa-paint-brush',
-        color: '#FFF100', // Yellow
+        color: '#EAE33C', // メインカラー：Yellow
         title: 'デザイン・制作',
         description: 'Web・チラシ・名刺・ポスター対応'
       },
       {
         icon: 'fas fa-laptop-code',
-        color: '#333333', // Black (K)
+        color: '#0A0F0F', // セミメインカラー：Black
         title: 'Web構築・開発・運用',
         description: 'Webサイト構築・SNS運用・HP更新'
       },
       {
         icon: 'fas fa-cogs',
-        color: '#00A1C9', // Cyan
+        color: '#1B2B59', // サブカラー：Navy
         title: '進行管理',
         description: '印刷・制作現場の調整、PMO業務'
       }
@@ -50,13 +50,13 @@ const services = [
     items: [
       {
         icon: 'fas fa-graduation-cap',
-        color: '#E60012', // Magenta
+        color: '#D1221A', // サブカラー：Red
         title: '教育・講習',
         description: '日本語教育・Adobe操作・AI・Office・PC操作支援'
       },
       {
         icon: 'fas fa-mountain',
-        color: '#FFF100', // Yellow
+        color: '#208B3B', // サブカラー：Green
         title: '体験サポート',
         description: 'シュノーケリング・登山・観光案内・キャンプ＆BBQ・地域イベント企画'
       }
