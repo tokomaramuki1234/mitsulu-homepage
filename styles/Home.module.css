@@ -1,6 +1,17 @@
 /* ==========================================
-   1. Container
+   三流（Mitsuryū）LP Stylesheet - Flat CMYK Design
+   テーマ: シンプル・フラット・CMYKカラー
 ========================================== */
+
+/* ==========================================
+   1. Base & Reset
+========================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -8,17 +19,18 @@
 }
 
 /* ==========================================
-   2. Skip Link (Accessibility)
+   2. Skip Link
 ========================================== */
 .skipLink {
   position: absolute;
-  top: -40px;
+  top: -100px;
   left: 0;
-  background: #4A8B6F;
+  background: #00A1C9;
   color: white;
-  padding: 8px;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  transition: top 0.3s ease;
   text-decoration: none;
-  z-index: 100;
 }
 
 .skipLink:focus {
@@ -33,88 +45,50 @@
   top: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #4A8B6F 0%, #F5A623 100%);
+  background: linear-gradient(90deg, #00A1C9 0%, #E60012 50%, #FFF100 100%);
   z-index: 9999;
   transition: width 0.1s ease;
 }
 
 /* ==========================================
-   4. Hero Section
+   4. Hero Section (変更なし)
 ========================================== */
 .heroSection {
-  padding: 0;
-  background: white;
-  text-align: center;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: #FAF5EB;
+  padding: 60px 0;
 }
 
 .heroLogoContainer {
   width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 20px;
+  margin-bottom: 3rem;
 }
 
 .heroMainLogo {
-  width: 100% !important;
-  max-width: 700px !important;
-  height: auto !important;
-  display: block !important;
+  display: block;
+  max-width: 70%;
+  width: 70%;
+  height: auto;
 }
 
 .heroCenter {
-  max-width: 900px;
-  margin: 0 auto;
   text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
-  padding: 3rem 0;
 }
 
 .heroCenter.visible {
   opacity: 1;
   transform: translateY(0);
 }
-
-.heroTitle {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #333333;
-  margin-bottom: 2rem;
-  line-height: 1.2;
-}
-
-.heroSubtitle {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: #555555;
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-}
-
-.heroCatchphrase {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #4A8B6F;
-  margin-bottom: 0.5rem;
-}
-
-.heroCatchphraseEn {
-  font-size: 1rem;
-  color: #999999;
-  font-style: italic;
-  margin-bottom: 2rem;
-}
-
-
 
 /* ==========================================
    5. Buttons
@@ -123,335 +97,456 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: #F5A623;
-  color: white;
-  padding: 16px 32px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  background-color: #00A1C9;
+  color: white !important;
+  padding: 1rem 2.5rem;
   border-radius: 50px;
-  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
+  text-decoration: none;
 }
 
 .ctaButton:hover {
-  background-color: #E89613;
+  background-color: #0088AD;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
 }
 
 /* ==========================================
-   6. Services Section
+   6. Section Titles
 ========================================== */
-.servicesSection {
-  padding: 100px 0;
-  background-color: #FAF5EB;
-}
-
 .sectionTitle {
   text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
   color: #333333;
   margin-bottom: 3rem;
-  position: relative;
-  padding-bottom: 20px;
 }
 
 .sectionTitle::after {
   content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  display: block;
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #4A8B6F 0%, #F5A623 100%);
+  background: linear-gradient(90deg, #00A1C9, #E60012, #FFF100);
+  margin: 1rem auto 0;
   border-radius: 2px;
 }
 
-.servicesGrid {
+/* ==========================================
+   7. Services Section (三流にできること)
+========================================== */
+.servicesSection {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.servicesRow {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.servicesRow2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.servicesRow3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .serviceCard {
-  background: white;
-  padding: 40px 30px;
-  border-radius: 16px;
+  background: transparent;
+  padding: 2rem;
   text-align: center;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border: none;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.serviceCard.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .serviceCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
 .serviceIcon {
-  font-size: 3rem;
-  margin-bottom: 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: white;
 }
 
 .serviceTitle {
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 700;
   color: #333333;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 .serviceDescription {
   font-size: 1rem;
   color: #666666;
-  line-height: 1.8;
+  line-height: 1.6;
 }
 
 /* ==========================================
-   7. Proposals Section
+   8. Proposals Section (横断的なサポート)
 ========================================== */
 .proposalsSection {
-  padding: 100px 0;
-  background-color: #FFFFFF;
+  background-color: #FAF5EB;
+  padding: 80px 0;
 }
 
 .proposalsIntro {
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   color: #666666;
-  margin-bottom: 50px;
-  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  line-height: 2;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.proposalsIntro.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .proposalsList {
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 0;
 }
 
 .proposalItem {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
+  display: flex;
   align-items: center;
+  gap: 60px;
+  padding: 3rem 0;
+  border-bottom: 1px solid #E0E0E0;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.proposalItem:last-child {
+  border-bottom: none;
+}
+
+.proposalItem.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.proposalItem:hover .proposalImage img {
+  transform: scale(1.05);
 }
 
 .proposalItemReverse {
-  direction: rtl;
-}
-
-.proposalItemReverse > * {
-  direction: ltr;
+  flex-direction: row-reverse;
 }
 
 .proposalImage {
-  width: 100%;
-  border-radius: 16px;
+  flex: 1;
   overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
 }
 
 .proposalImage img {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.proposalImage:hover img {
-  transform: scale(1.05);
+  transition: transform 0.5s ease;
+  display: block;
 }
 
 .proposalContent {
-  padding: 20px;
+  flex: 1;
 }
 
 .proposalTitle {
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 700;
   color: #333333;
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 .proposalDescription {
-  font-size: 1.1rem;
-  color: #666666;
-  line-height: 1.8;
-}
-
-/* ==========================================
-   8. Concerns Section
-========================================== */
-.concernsSection {
-  padding: 100px 0;
-  background-color: #F5EFE0;
-}
-
-.concernsList {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.concernItem {
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-}
-
-.concernQuestion {
-  width: 100%;
-  padding: 20px 25px;
-  background: white;
-  border: none;
-  text-align: left;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #333333;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s ease;
-}
-
-.concernQuestion:hover {
-  background-color: #FAF5EB;
-}
-
-.concernIcon {
-  font-size: 1.5rem;
-  color: #4A8B6F;
-  transition: transform 0.3s ease;
-}
-
-.concernIcon.open {
-  transform: rotate(45deg);
-}
-
-.concernAnswer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.concernAnswer.open {
-  max-height: 500px;
-}
-
-.concernAnswerContent {
-  padding: 0 25px 20px 25px;
   font-size: 1rem;
   color: #666666;
   line-height: 1.8;
 }
 
 /* ==========================================
-   9. Philosophy Section
+   9. Concerns Section (アコーディオン)
+========================================== */
+.concernsSection {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.concernsAccordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.accordionItem {
+  background: transparent;
+  margin-bottom: 20px;
+  border: 2px solid #F0F0F0;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.accordionItem.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #333333;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.accordionHeader:hover {
+  background-color: #FAF5EB;
+}
+
+.accordionHeader[aria-expanded="true"] {
+  background-color: #FAF5EB;
+}
+
+.accordionHeader i:first-child {
+  font-size: 1.5rem;
+  color: #00A1C9;
+}
+
+.accordionHeader span {
+  flex: 1;
+}
+
+.accordionIcon {
+  font-size: 1rem;
+  color: #666666;
+  transition: transform 0.3s ease;
+}
+
+.accordionHeader[aria-expanded="true"] .accordionIcon {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordionHeader[aria-expanded="true"] + .accordionContent {
+  max-height: 1000px;
+}
+
+.concernsList {
+  list-style: none;
+  padding: 1.5rem 2rem;
+}
+
+.concernsList li {
+  padding: 0.75rem 0;
+  padding-left: 1.5rem;
+  border-bottom: 1px solid #F5F5F5;
+  position: relative;
+  color: #666666;
+}
+
+.concernsList li:last-child {
+  border-bottom: none;
+}
+
+.concernsList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #00A1C9;
+  font-weight: bold;
+}
+
+/* ==========================================
+   10. Philosophy Section (三流の価値)
 ========================================== */
 .philosophySection {
-  padding: 100px 0;
-  background: linear-gradient(135deg, #4A8B6F 0%, #3A7B5F 100%);
-  color: white;
+  background-color: #FAF5EB;
+  padding: 80px 0;
 }
 
 .philosophyContent {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
   gap: 60px;
   align-items: center;
 }
 
 .philosophyLeft {
-  text-align: left;
+  flex: 1;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.philosophyLeft.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .philosophyText {
-  font-size: 1.2rem;
+  font-size: 1.25rem;
+  color: #666666;
   line-height: 2;
-  margin-top: 30px;
 }
 
 .philosophyRight {
-  text-align: center;
+  flex: 1;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.philosophyRight.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .philosophyIcons {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.philosophyIcons i {
   font-size: 3rem;
+  color: #00A1C9;
+  transition: all 0.3s ease;
+}
+
+.philosophyIcons i:hover {
+  color: #E60012;
+  transform: scale(1.2);
 }
 
 /* ==========================================
-   10. Contact Section
+   11. Contact Section
 ========================================== */
 .contactSection {
-  padding: 100px 0;
-  background-color: #FAF5EB;
+  background-color: #FFFFFF;
+  padding: 80px 0;
 }
 
 .contactContent {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
+  display: flex;
   gap: 60px;
   align-items: center;
 }
 
 .contactLeft {
-  text-align: left;
+  flex: 1;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.contactLeft.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contactText {
-  font-size: 1.2rem;
-  line-height: 2;
-  margin-top: 30px;
-  margin-bottom: 40px;
+  font-size: 1.25rem;
   color: #666666;
+  line-height: 2;
+  margin-bottom: 2rem;
 }
 
 .contactRight {
-  text-align: center;
+  flex: 1;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.contactRight.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .contactIcons {
   display: flex;
-  flex-direction: column;
-  gap: 30px;
-  font-size: 3rem;
-  color: #4A8B6F;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.contactIcons i {
+  font-size: 5rem;
+  color: #00A1C9;
+  transition: all 0.3s ease;
+}
+
+.contactIcons i:hover {
+  color: #E60012;
+  transform: scale(1.1);
 }
 
 /* ==========================================
-   11. Footer
+   12. Footer
 ========================================== */
 .footer {
-  padding: 60px 0 30px;
   background-color: #333333;
-  color: #FFFFFF;
+  padding: 3rem 0 1.5rem;
+  color: white;
 }
 
 .footerContent {
   text-align: center;
 }
 
+.footerCenter {
+  margin-bottom: 2rem;
+}
+
 .footerTagline {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 30px;
-  color: #F5A623;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin-bottom: 0;
 }
 
 .footerBottom {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 40px;
-  padding-top: 30px;
-  border-top: 1px solid #555555;
+  margin-bottom: 2rem;
+  padding: 0 2rem;
 }
 
 .footerLeft {
@@ -459,57 +554,41 @@
 }
 
 .footerLeft p {
-  margin-bottom: 10px;
-  font-size: 0.95rem;
+  color: #CCCCCC;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
 }
 
 .footerLeft a {
-  color: #F5A623;
+  color: #00A1C9;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footerLeft a:hover {
-  color: #E89613;
+  color: #FFF100;
 }
 
 .footerRight {
   text-align: right;
 }
 
-.socialIcons {
-  display: flex;
-  gap: 20px;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-}
-
-.socialIcon {
-  width: 40px;
-  height: 40px;
-  background-color: #4A8B6F;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-decoration: none;
-  font-size: 1.2rem;
-  transition: all 0.3s ease;
-}
-
-.socialIcon:hover {
-  background-color: #F5A623;
-  transform: translateY(-3px);
-}
-
-.copyright {
+.footerRight p {
+  color: #CCCCCC;
+  margin-bottom: 0.5rem;
   font-size: 0.9rem;
+}
+
+.footerCopyright {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #555555;
   color: #999999;
+  font-size: 0.875rem;
 }
 
 /* ==========================================
-   12. Back to Top Button
+   13. Back to Top Button
 ========================================== */
 .backToTop {
   position: fixed;
@@ -517,13 +596,15 @@
   right: 30px;
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #4A8B6F 0%, #F5A623 100%);
+  background-color: #00A1C9;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.5rem;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
@@ -536,142 +617,77 @@
 }
 
 .backToTop:hover {
+  background-color: #E60012;
   transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* ==========================================
-   13. Animations & Utilities
-========================================== */
-.fadeIn {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.fadeIn.visible {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 /* ==========================================
    14. Responsive Design
 ========================================== */
 
-/* Tablet */
-@media (max-width: 768px) {
+/* Tablet: 768px-1199px */
+@media (max-width: 1199px) {
   .container {
     padding: 0 15px;
   }
 
-  .heroSection {
-    padding: 0;
-    min-height: 100vh;
-  }
-
-  .heroLogoContainer {
-    padding: 40px 15px;
-  }
-
-  .heroMainLogo {
-    max-width: 80%;
-    width: 80%;
-  }
-
-  .heroCenter {
-    max-width: 100%;
-    padding: 2rem 0;
-  }
-
-  .heroTitle {
-    font-size: 2.5rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1.25rem;
-  }
-
-  .heroCatchphrase {
-    font-size: 1rem;
-  }
-
   .sectionTitle {
     font-size: 2rem;
-    margin-bottom: 2rem;
   }
 
-  .servicesGrid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+  .servicesRow3 {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .proposalItem {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
+  .proposalItem,
   .proposalItemReverse {
-    direction: ltr;
+    flex-direction: column;
+    gap: 30px;
   }
 
   .philosophyContent,
   .contactContent {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 40px;
   }
 
   .footerBottom {
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     text-align: center;
   }
 
-  .footerLeft,
+  .footerLeft {
+    text-align: center;
+  }
+
   .footerRight {
     text-align: center;
   }
-
-  .socialIcons {
-    justify-content: center;
-  }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-  .container {
-    padding: 0 10px;
-  }
-
+/* Mobile: 767px以下 */
+@media (max-width: 767px) {
   .heroSection {
-    padding: 0;
-    min-height: 100vh;
-  }
-
-  .heroLogoContainer {
-    padding: 30px 10px;
-    margin-bottom: 60px;
+    padding: 40px 0;
   }
 
   .heroMainLogo {
-    max-width: 80%;
-    width: 80%;
-  }
-
-  .heroTitle {
-    font-size: 2.25rem;
-  }
-
-  .heroSubtitle {
-    font-size: 1.25rem;
-  }
-
-  .heroCatchphrase {
-    font-size: 1rem;
+    max-width: 90% !important;
+    width: 90% !important;
   }
 
   .sectionTitle {
     font-size: 1.75rem;
     margin-bottom: 2rem;
+  }
+
+  .servicesSection,
+  .proposalsSection,
+  .concernsSection,
+  .philosophySection,
+  .contactSection {
+    padding: 60px 0;
   }
 
   .servicesRow,
@@ -681,23 +697,81 @@
   }
 
   .serviceCard {
-    padding: 30px 20px;
+    padding: 1.5rem;
   }
 
-  .proposalsList {
-    gap: 40px;
+  .proposalsIntro {
+    font-size: 1rem;
+    margin-bottom: 2rem;
   }
 
-  .ctaButton {
-    padding: 14px 28px;
+  .proposalItem {
+    padding: 2rem 0;
+  }
+
+  .proposalImage img {
+    height: 200px;
+  }
+
+  .proposalTitle {
+    font-size: 1.25rem;
+  }
+
+  .accordionHeader {
+    padding: 1rem;
     font-size: 1rem;
   }
 
-  .backToTop {
-    bottom: 20px;
-    right: 20px;
-    width: 45px;
-    height: 45px;
-    font-size: 1.3rem;
+  .concernsList {
+    padding: 1rem 1.5rem;
+  }
+
+  .concernsList li {
+    font-size: 0.875rem;
+  }
+
+  .philosophyText,
+  .contactText {
+    font-size: 1rem;
+  }
+
+  .philosophyIcons i {
+    font-size: 2rem;
+  }
+
+  .contactIcons i {
+    font-size: 3rem;
+  }
+
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+
+  .footerBottom {
+    padding: 0;
+  }
+}
+
+/* Extra Small: 480px以下 */
+@media (max-width: 480px) {
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .serviceIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .serviceTitle {
+    font-size: 1.125rem;
+  }
+
+  .proposalTitle {
+    font-size: 1.125rem;
   }
 }

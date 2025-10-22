@@ -11,13 +11,15 @@ const Footer = () => {
           <div className={styles.footerBottom}>
             <div className={styles.footerLeft}>
               <p>
-                ドメイン：
                 <a href="https://mitsulu.style/">https://mitsulu.style/</a>
               </p>
               <p>
-                お問い合わせ：
                 <a href="mailto:me@mitsulu.style">me@mitsulu.style</a>
               </p>
+            </div>
+            <div className={styles.footerRight}>
+              <p>様々な悩みの受け皿に。</p>
+              <p>All worries welcome here.</p>
             </div>
           </div>
           <div className={styles.footerCopyright}>

@@ -45,17 +45,17 @@ p {
 }
 
 a {
-  color: #F5A623;
+  color: #00A1C9;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover {
-  color: #E88C00;
+  color: #E60012;
 }
 
 /* Keyboard Navigation Focus Styles */
 body.keyboard-nav *:focus {
-  outline: 3px solid #F5A623;
+  outline: 3px solid #00A1C9;
   outline-offset: 2px;
 }
