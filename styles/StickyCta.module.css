@@ -1,0 +1,74 @@
+/* ==========================================
+   Sticky CTA Button
+========================================== */
+.stickyCta {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stickyButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 24px;
+  background: #CD2272;
+  color: #FFFFFF !important;
+  border-radius: 50px;
+  box-shadow: 0 4px 12px rgba(205, 34, 114, 0.3);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.stickyButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(205, 34, 114, 0.4);
+  background: #D1221A;
+}
+
+.stickyButton i {
+  font-size: 1.125rem;
+}
+
+@media (max-width: 768px) {
+  .stickyCta {
+    bottom: 10px;
+    right: 10px;
+  }
+  
+  .stickyButton {
+    padding: 14px 20px;
+    font-size: 0.875rem;
+  }
+  
+  .stickyText {
+    display: none;
+  }
+  
+  .stickyButton {
+    width: 56px;
+    height: 56px;
+    justify-content: center;
+    padding: 0;
+  }
+  
+  .stickyButton i {
+    font-size: 1.25rem;
+  }
+}

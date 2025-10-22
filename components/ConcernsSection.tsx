@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import styles from '../styles/Home.module.css';
+import SectionCta from './SectionCta';
 
 const concernsData = [
   {
@@ -149,6 +150,11 @@ const ConcernsSection = () => {
             </div>
           ))}
         </div>
+        
+        <SectionCta 
+          text="この中に当てはまるお悩みはありましたか？"
+          buttonText="お気軽にお問い合わせください"
+        />
       </div>
     </section>
   );

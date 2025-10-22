@@ -11,6 +11,9 @@ import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 import ScrollProgress from '../components/ScrollProgress';
 import BackToTop from '../components/BackToTop';
+import StickyCta from '../components/StickyCta';
+import AchievementsSection from '../components/AchievementsSection';
+import PricingSection from '../components/PricingSection';
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -49,6 +52,8 @@ const Home: NextPage = () => {
       {/* Main Content */}
       <main id="main-content">
         <ServicesSection />
+        <AchievementsSection />
+        <PricingSection />
         <ProposalsSection />
         <ConcernsSection />
         <PhilosophySection />
@@ -60,6 +65,9 @@ const Home: NextPage = () => {
 
       {/* Back to Top Button */}
       <BackToTop />
+
+      {/* Sticky CTA Button */}
+      <StickyCta />
     </div>
   );
 };

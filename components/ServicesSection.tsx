@@ -1,5 +1,6 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import styles from '../styles/Home.module.css';
+import SectionCta from './SectionCta';
 
 const services = [
   // Top Row: 2 items
@@ -99,6 +100,11 @@ const ServicesSection = () => {
             ))}
           </div>
         ))}
+        
+        <SectionCta 
+          text="気になるサービスがありましたか？"
+          buttonText="まずは気軽にご相談ください"
+        />
       </div>
     </section>
   );

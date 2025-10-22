@@ -1,5 +1,6 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import styles from '../styles/Home.module.css';
+import SectionCta from './SectionCta';
 
 const PhilosophySection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
@@ -24,6 +25,11 @@ const PhilosophySection = () => {
             </div>
           </div>
         </div>
+        
+        <SectionCta 
+          text="三流の考え方に共感いただけましたか？"
+          buttonText="一緒に課題解決しましょう"
+        />
       </div>
     </section>
   );

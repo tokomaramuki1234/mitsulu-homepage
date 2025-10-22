@@ -1,5 +1,6 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import styles from '../styles/Home.module.css';
+import SectionCta from './SectionCta';
 import Image from 'next/image';
 
 const proposals = [
@@ -114,6 +115,11 @@ const ProposalsSection = () => {
             </article>
           ))}
         </div>
+        
+        <SectionCta 
+          text="三流の解決アイデアに興味を持たれましたか？"
+          buttonText="あなたのお悩みもご相談ください"
+        />
       </div>
     </section>
   );
