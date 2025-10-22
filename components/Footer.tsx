@@ -6,7 +6,7 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.footerContent}>
           <div className={styles.footerCenter}>
-            <p className={styles.footerTagline}>三流 ― 深くはない。ただ、広い。</p>
+            <p className={styles.footerTagline}>三流 ― 幅広く、柔軟に、あなたをサポート。</p>
           </div>
           <div className={styles.footerBottom}>
             <div className={styles.footerLeft}>

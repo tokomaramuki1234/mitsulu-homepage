@@ -11,7 +11,7 @@ const ContactSection = () => {
           <div className={`${styles.contactLeft} ${isVisible ? styles.visible : ''}`}>
             <h2 className={styles.sectionTitle}>ご相談ください</h2>
             <p className={styles.contactText}>
-              誰に頼めばいいかわからない案件、専門家を雇うほどではないが手を貸してほしい仕事、現場の"潤滑油"がほしいとき
+              誰に頼めばいいかわからない案件、複数の分野にまたがる業務、現場の"潤滑油"が必要なとき、ぜひお声がけください。
             </p>
             <a
               href="mailto:me@mitsulu.style"

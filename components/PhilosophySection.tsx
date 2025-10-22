@@ -11,7 +11,7 @@ const PhilosophySection = () => {
           <div className={`${styles.philosophyLeft} ${isVisible ? styles.visible : ''}`}>
             <h2 className={styles.sectionTitle}>三流の価値</h2>
             <p className={styles.philosophyText}>
-              一流の専門家ではない。けれど、分野を横断してつなぎ、足りないところを補える。現場の小さな課題をまとめて解決し、静かに前に進める。
+              幅広い分野に対応できる柔軟性が強みです。分野を横断してつなぎ、足りないところを補います。現場の小さな課題をまとめて解決し、着実に前進をサポートします。
             </p>
           </div>
           <div className={`${styles.philosophyRight} ${isVisible ? styles.visible : ''}`}>
