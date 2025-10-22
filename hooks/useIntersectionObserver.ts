@@ -7,9 +7,9 @@ interface UseIntersectionObserverOptions {
 
 export const useIntersectionObserver = (
   options: UseIntersectionObserverOptions = {}
-): [React.RefObject<HTMLElement>, boolean] => {
+): [React.RefObject<HTMLElement | null>, boolean] => {
   const { threshold = 0.1, rootMargin = '0px 0px -50px 0px' } = options;
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
