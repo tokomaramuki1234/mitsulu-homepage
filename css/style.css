@@ -1,0 +1,846 @@
+/* ==========================================
+   三流（Mitsuryū）LP Stylesheet
+   デザインシステム: フラット・シンプル・モダン
+========================================== */
+
+/* ==========================================
+   1. Reset & Base Styles
+========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #333333;
+    background-color: #FAF5EB;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   2. Typography
+========================================== */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+a {
+    color: #F5A623;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #E88C00;
+}
+
+/* ==========================================
+   3. Accessibility
+========================================== */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 0;
+    background: #F5A623;
+    color: white;
+    padding: 0.5rem 1rem;
+    z-index: 1000;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* ==========================================
+   4. Layout Components
+========================================== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+/* ==========================================
+   5. Hero Section
+========================================== */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #FAF5EB 0%, #F5EFE0 100%);
+    padding: 60px 0;
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-left {
+    animation-delay: 0.2s;
+}
+
+.hero-right {
+    animation-delay: 0.4s;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #666666;
+    margin-bottom: 1.5rem;
+}
+
+.hero-catchphrase {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #8BC78F;
+    margin-bottom: 0.5rem;
+}
+
+.hero-catchphrase-en {
+    font-size: 1rem;
+    color: #999999;
+    font-style: italic;
+    margin-bottom: 2rem;
+}
+
+.hero-icons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-items: center;
+}
+
+.icon-large {
+    font-size: 4rem;
+    color: #8BC78F;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.icon-large:hover {
+    transform: scale(1.2);
+    color: #F5A623;
+}
+
+/* ==========================================
+   6. Buttons
+========================================== */
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #F5A623;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1.125rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
+}
+
+.cta-button:hover {
+    background-color: #E88C00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+    color: white;
+}
+
+/* ==========================================
+   7. Section Titles
+========================================== */
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background-color: #F5A623;
+    border-radius: 2px;
+}
+
+/* ==========================================
+   8. Services Section
+========================================== */
+.services-section {
+    background-color: #FFFFFF;
+}
+
+.services-row {
+    display: grid;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.services-row-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.services-row-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.service-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+}
+
+.service-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 1rem;
+}
+
+.service-description {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* ==========================================
+   9. Proposals Section
+========================================== */
+.proposals-section {
+    background-color: #FAF5EB;
+}
+
+.proposals-intro {
+    text-align: center;
+    font-size: 1.25rem;
+    color: #666666;
+    max-width: 800px;
+    margin: 0 auto 4rem;
+    line-height: 2;
+}
+
+.proposals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.proposal-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+}
+
+.proposal-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.proposal-item-reverse {
+    grid-template-columns: 1fr 1fr;
+}
+
+.proposal-item-reverse .proposal-image {
+    order: 2;
+}
+
+.proposal-item-reverse .proposal-content {
+    order: 1;
+}
+
+.proposal-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.proposal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 1rem;
+}
+
+.proposal-description {
+    font-size: 1rem;
+    color: #666666;
+    line-height: 1.8;
+}
+
+/* ==========================================
+   10. Concerns Section (Accordion)
+========================================== */
+.concerns-section {
+    background-color: #FFFFFF;
+}
+
+.concerns-accordion {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.accordion-item {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 1.5rem;
+    background: #FAF5EB;
+    border: none;
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 500;
+    color: #333333;
+    text-align: left;
+    transition: background-color 0.3s ease;
+}
+
+.accordion-header:hover {
+    background-color: #F5EFE0;
+}
+
+.accordion-header i:first-child {
+    font-size: 1.5rem;
+    color: #F5A623;
+}
+
+.accordion-header span {
+    flex: 1;
+}
+
+.accordion-icon {
+    font-size: 1rem;
+    color: #666666;
+    transition: transform 0.3s ease;
+}
+
+.accordion-header[aria-expanded="true"] .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.accordion-header[aria-expanded="true"] + .accordion-content {
+    max-height: 1000px;
+}
+
+.concerns-list {
+    list-style: none;
+    padding: 1.5rem 2rem;
+}
+
+.concerns-list li {
+    padding: 0.75rem 0;
+    padding-left: 1.5rem;
+    border-bottom: 1px solid #F5F5F5;
+    position: relative;
+    color: #666666;
+}
+
+.concerns-list li:last-child {
+    border-bottom: none;
+}
+
+.concerns-list li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #8BC78F;
+    font-weight: bold;
+}
+
+/* ==========================================
+   11. Philosophy Section
+========================================== */
+.philosophy-section {
+    background-color: #FAF5EB;
+}
+
+.philosophy-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.philosophy-text {
+    font-size: 1.125rem;
+    color: #666666;
+    line-height: 2;
+}
+
+.philosophy-icons {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.philosophy-icons i {
+    font-size: 3rem;
+    color: #8BC78F;
+    transition: all 0.3s ease;
+}
+
+.philosophy-icons i:hover {
+    color: #F5A623;
+    transform: scale(1.2);
+}
+
+/* ==========================================
+   12. Contact Section
+========================================== */
+.contact-section {
+    background-color: #FFFFFF;
+}
+
+.contact-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.contact-text {
+    font-size: 1.125rem;
+    color: #666666;
+    line-height: 2;
+    margin-bottom: 2rem;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.contact-icons i {
+    font-size: 5rem;
+    color: #8BC78F;
+    transition: all 0.3s ease;
+}
+
+.contact-icons i:hover {
+    color: #F5A623;
+    transform: scale(1.1);
+}
+
+/* ==========================================
+   13. Footer
+========================================== */
+.footer {
+    background-color: #EDEBE3;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-tagline {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #333333;
+    margin-bottom: 2rem;
+}
+
+.footer-bottom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.footer-left p {
+    color: #666666;
+    margin-bottom: 0.5rem;
+}
+
+.footer-left a {
+    color: #F5A623;
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #8BC78F;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background-color: #F5A623;
+    transform: translateY(-3px);
+}
+
+.footer-copyright {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #D0D0D0;
+    color: #999999;
+    font-size: 0.875rem;
+}
+
+/* ==========================================
+   14. Animations
+========================================== */
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   15. Responsive Design
+========================================== */
+
+/* Tablet: 768px-1199px */
+@media (max-width: 1199px) {
+    html {
+        font-size: 15px;
+    }
+
+    .container {
+        padding: 0 15px;
+    }
+
+    section {
+        padding: 60px 0;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+    }
+
+    .services-row-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .proposal-item,
+    .proposal-item-reverse {
+        grid-template-columns: 1fr;
+    }
+
+    .proposal-item-reverse .proposal-image {
+        order: 1;
+    }
+
+    .proposal-item-reverse .proposal-content {
+        order: 2;
+    }
+}
+
+/* Mobile: 767px以下 */
+@media (max-width: 767px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    section {
+        padding: 40px 0;
+    }
+
+    .hero-section {
+        min-height: auto;
+        padding: 40px 0;
+    }
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .hero-catchphrase {
+        font-size: 1rem;
+    }
+
+    .hero-icons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .icon-large {
+        font-size: 3rem;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        margin-bottom: 2rem;
+    }
+
+    .services-row,
+    .services-row-2,
+    .services-row-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+
+    .proposals-intro {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .proposals-list {
+        gap: 40px;
+    }
+
+    .proposal-item,
+    .proposal-item-reverse {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+
+    .proposal-item-reverse .proposal-image {
+        order: 1;
+    }
+
+    .proposal-item-reverse .proposal-content {
+        order: 2;
+    }
+
+    .proposal-image img {
+        height: 200px;
+    }
+
+    .proposal-title {
+        font-size: 1.25rem;
+    }
+
+    .accordion-header {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .concerns-list {
+        padding: 1rem 1.5rem;
+    }
+
+    .concerns-list li {
+        font-size: 0.875rem;
+    }
+
+    .philosophy-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .philosophy-icons,
+    .contact-icons {
+        gap: 20px;
+    }
+
+    .philosophy-icons i {
+        font-size: 2rem;
+    }
+
+    .contact-icons i {
+        font-size: 3rem;
+    }
+
+    .footer-bottom {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .footer-right {
+        text-align: center;
+    }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .cta-button {
+        width: 100%;
+        justify-content: center;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Extra Small: 480px以下 */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    .service-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .service-title {
+        font-size: 1.125rem;
+    }
+
+    .proposal-title {
+        font-size: 1.125rem;
+    }
+}
+
+/* ==========================================
+   16. Print Styles
+========================================== */
+@media print {
+    .hero-icons,
+    .service-icon,
+    .philosophy-icons,
+    .contact-icons,
+    .social-icons {
+        display: none;
+    }
+
+    body {
+        background-color: white;
+    }
+
+    section {
+        page-break-inside: avoid;
+    }
+}

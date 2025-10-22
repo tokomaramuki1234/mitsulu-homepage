@@ -1,0 +1,863 @@
+/* ==========================================
+   三流（Mitsuryū）LP Stylesheet - Next.js Version
+   デザインシステム: フラット・シンプル・モダン
+========================================== */
+
+/* ==========================================
+   1. Container & Global Styles
+========================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================
+   2. Skip Link
+========================================== */
+.skipLink {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: #F5A623;
+  color: white;
+  padding: 0.5rem 1rem;
+  z-index: 1000;
+  transition: top 0.3s ease;
+  text-decoration: none;
+}
+
+.skipLink:focus {
+  top: 0;
+}
+
+/* ==========================================
+   3. Scroll Progress
+========================================== */
+.scrollProgress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #F5A623, #8BC78F);
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* ==========================================
+   4. Hero Section
+========================================== */
+.heroSection {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, #FAF5EB 0%, #F5EFE0 100%);
+  padding: 60px 0;
+}
+
+.heroContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.heroLeft,
+.heroRight {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.heroLeft.visible,
+.heroRight.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroTitle {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #666666;
+  margin-bottom: 1.5rem;
+}
+
+.heroCatchphrase {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #8BC78F;
+  margin-bottom: 0.5rem;
+}
+
+.heroCatchphraseEn {
+  font-size: 1rem;
+  color: #999999;
+  font-style: italic;
+  margin-bottom: 2rem;
+}
+
+.heroIcons {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  justify-items: center;
+}
+
+.heroIcons i {
+  font-size: 4rem;
+  color: #8BC78F;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.heroIcons i:hover {
+  transform: scale(1.2);
+  color: #F5A623;
+}
+
+/* ==========================================
+   5. Buttons
+========================================== */
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #F5A623;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.125rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
+  text-decoration: none;
+}
+
+.ctaButton:hover {
+  background-color: #E88C00;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
+  color: white;
+}
+
+/* ==========================================
+   6. Section Titles
+========================================== */
+.sectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 3rem;
+  position: relative;
+  padding-bottom: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.sectionTitle.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background-color: #F5A623;
+  border-radius: 2px;
+}
+
+/* ==========================================
+   7. Services Section
+========================================== */
+.servicesSection {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.servicesRow {
+  display: grid;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.servicesRow2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.servicesRow3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.serviceCard {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.serviceCard.visible {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.serviceCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.serviceIcon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: white;
+}
+
+.serviceTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.serviceDescription {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   8. Proposals Section
+========================================== */
+.proposalsSection {
+  background-color: #FAF5EB;
+  padding: 80px 0;
+}
+
+.proposalsIntro {
+  text-align: center;
+  font-size: 1.25rem;
+  color: #666666;
+  max-width: 800px;
+  margin: 0 auto 4rem;
+  line-height: 2;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.proposalsIntro.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.proposalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.proposalItem {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.proposalItem.visible {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.proposalItem:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.proposalItemReverse {
+  grid-template-columns: 1fr 1fr;
+}
+
+.proposalItemReverse .proposalImage {
+  order: 2;
+}
+
+.proposalItemReverse .proposalContent {
+  order: 1;
+}
+
+.proposalImage img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.proposalTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+
+.proposalDescription {
+  font-size: 1rem;
+  color: #666666;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   9. Concerns Section (Accordion)
+========================================== */
+.concernsSection {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.concernsAccordion {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.accordionItem {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.accordionItem.visible {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.accordionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 1.5rem;
+  background: #FAF5EB;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #333333;
+  text-align: left;
+  transition: background-color 0.3s ease;
+}
+
+.accordionHeader:hover {
+  background-color: #F5EFE0;
+}
+
+.accordionHeader i:first-child {
+  font-size: 1.5rem;
+  color: #F5A623;
+}
+
+.accordionHeader span {
+  flex: 1;
+}
+
+.accordionIcon {
+  font-size: 1rem;
+  color: #666666;
+  transition: transform 0.3s ease;
+}
+
+.accordionHeader[aria-expanded="true"] .accordionIcon {
+  transform: rotate(180deg);
+}
+
+.accordionContent {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.accordionContentOpen {
+  max-height: 1000px;
+}
+
+.concernsList {
+  list-style: none;
+  padding: 1.5rem 2rem;
+}
+
+.concernsList li {
+  padding: 0.75rem 0;
+  padding-left: 1.5rem;
+  border-bottom: 1px solid #F5F5F5;
+  position: relative;
+  color: #666666;
+}
+
+.concernsList li:last-child {
+  border-bottom: none;
+}
+
+.concernsList li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #8BC78F;
+  font-weight: bold;
+}
+
+/* ==========================================
+   10. Philosophy Section
+========================================== */
+.philosophySection {
+  background-color: #FAF5EB;
+  padding: 80px 0;
+}
+
+.philosophyContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.philosophyLeft,
+.philosophyRight {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.philosophyLeft.visible,
+.philosophyRight.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.philosophyText {
+  font-size: 1.125rem;
+  color: #666666;
+  line-height: 2;
+}
+
+.philosophyIcons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.philosophyIcons i {
+  font-size: 3rem;
+  color: #8BC78F;
+  transition: all 0.3s ease;
+}
+
+.philosophyIcons i:hover {
+  color: #F5A623;
+  transform: scale(1.2);
+}
+
+/* ==========================================
+   11. Contact Section
+========================================== */
+.contactSection {
+  background-color: #FFFFFF;
+  padding: 80px 0;
+}
+
+.contactContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.contactLeft,
+.contactRight {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contactLeft.visible,
+.contactRight.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contactText {
+  font-size: 1.125rem;
+  color: #666666;
+  line-height: 2;
+  margin-bottom: 2rem;
+}
+
+.contactIcons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.contactIcons i {
+  font-size: 5rem;
+  color: #8BC78F;
+  transition: all 0.3s ease;
+}
+
+.contactIcons i:hover {
+  color: #F5A623;
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   12. Footer
+========================================== */
+.footer {
+  background-color: #EDEBE3;
+  padding: 3rem 0 1rem;
+}
+
+.footerContent {
+  text-align: center;
+}
+
+.footerTagline {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 2rem;
+}
+
+.footerBottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.footerLeft p {
+  color: #666666;
+  margin-bottom: 0.5rem;
+}
+
+.footerLeft a {
+  color: #F5A623;
+  text-decoration: none;
+}
+
+.footerLeft a:hover {
+  color: #E88C00;
+}
+
+.footerRight {
+  text-align: right;
+}
+
+.socialIcons {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.socialIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #8BC78F;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.socialIcon:hover {
+  background-color: #F5A623;
+  transform: translateY(-3px);
+}
+
+.footerCopyright {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #D0D0D0;
+  color: #999999;
+  font-size: 0.875rem;
+}
+
+/* ==========================================
+   13. Back to Top Button
+========================================== */
+.backToTop {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: #F5A623;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
+}
+
+.backToTopVisible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.backToTop:hover {
+  background-color: #E88C00;
+  transform: translateY(-5px);
+}
+
+/* ==========================================
+   14. Responsive Design
+========================================== */
+
+/* Tablet: 768px-1199px */
+@media (max-width: 1199px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1.25rem;
+  }
+
+  .servicesRow3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .proposalItem,
+  .proposalItemReverse {
+    grid-template-columns: 1fr;
+  }
+
+  .proposalItemReverse .proposalImage {
+    order: 1;
+  }
+
+  .proposalItemReverse .proposalContent {
+    order: 2;
+  }
+}
+
+/* Mobile: 767px以下 */
+@media (max-width: 767px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .heroSection {
+    min-height: auto;
+    padding: 40px 0;
+  }
+
+  .heroContent {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .heroTitle {
+    font-size: 1.75rem;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+  }
+
+  .heroCatchphrase {
+    font-size: 1rem;
+  }
+
+  .heroIcons {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .heroIcons i {
+    font-size: 3rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .servicesRow,
+  .servicesRow2,
+  .servicesRow3 {
+    grid-template-columns: 1fr;
+  }
+
+  .serviceCard {
+    padding: 1.5rem;
+  }
+
+  .proposalsIntro {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .proposalsList {
+    gap: 40px;
+  }
+
+  .proposalItem,
+  .proposalItemReverse {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+
+  .proposalItemReverse .proposalImage {
+    order: 1;
+  }
+
+  .proposalItemReverse .proposalContent {
+    order: 2;
+  }
+
+  .proposalImage img {
+    height: 200px;
+  }
+
+  .proposalTitle {
+    font-size: 1.25rem;
+  }
+
+  .accordionHeader {
+    padding: 1rem;
+    font-size: 1rem;
+  }
+
+  .concernsList {
+    padding: 1rem 1.5rem;
+  }
+
+  .concernsList li {
+    font-size: 0.875rem;
+  }
+
+  .philosophyContent,
+  .contactContent {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .philosophyIcons,
+  .contactIcons {
+    gap: 20px;
+  }
+
+  .philosophyIcons i {
+    font-size: 2rem;
+  }
+
+  .contactIcons i {
+    font-size: 3rem;
+  }
+
+  .footerBottom {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .footerRight {
+    text-align: center;
+  }
+
+  .socialIcons {
+    justify-content: center;
+  }
+
+  .ctaButton {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small: 480px以下 */
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 1.5rem;
+  }
+
+  .heroSubtitle {
+    font-size: 0.875rem;
+  }
+
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+
+  .serviceIcon {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+
+  .serviceTitle {
+    font-size: 1.125rem;
+  }
+
+  .proposalTitle {
+    font-size: 1.125rem;
+  }
+}
