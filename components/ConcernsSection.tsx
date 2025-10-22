@@ -6,6 +6,7 @@ const concernsData = [
   {
     id: 'facilitation',
     icon: 'fas fa-bullseye',
+    color: '#248EC6', // メインカラー：Cyan
     title: 'ファシリテーション',
     items: [
       '会議がいつも長引いて結論が出ない。進行を任せたい。',
@@ -18,6 +19,7 @@ const concernsData = [
   {
     id: 'planning',
     icon: 'fas fa-puzzle-piece',
+    color: '#CD2272', // メインカラー：Magenta
     title: '企画・研修',
     items: [
       '新人研修のプログラムを作りたいが、ノウハウがない。',
@@ -30,6 +32,7 @@ const concernsData = [
   {
     id: 'design',
     icon: 'fas fa-paint-brush',
+    color: '#EAE33C', // メインカラー：Yellow
     title: 'デザイン・制作',
     items: [
       'チラシや名刺のデザインを頼みたいが、どこに頼めばいいか分からない。',
@@ -43,6 +46,7 @@ const concernsData = [
   {
     id: 'web',
     icon: 'fas fa-laptop-code',
+    color: '#0A0F0F', // セミメインカラー：Black
     title: 'Web構築・開発・運用',
     items: [
       'ホームページを作りたい。自分だけのメールアドレスがほしい。',
@@ -57,6 +61,7 @@ const concernsData = [
   {
     id: 'management',
     icon: 'fas fa-cogs',
+    color: '#1B2B59', // サブカラー：Navy
     title: '進行管理',
     items: [
       'プロジェクトの進行管理が苦手。外部の目が欲しい。',
@@ -69,6 +74,7 @@ const concernsData = [
   {
     id: 'education',
     icon: 'fas fa-graduation-cap',
+    color: '#D1221A', // サブカラー：Red
     title: '教育・講習',
     items: [
       'パソコン、スマホの操作が分からない。もっと上手に使いたい。',
@@ -84,6 +90,7 @@ const concernsData = [
   {
     id: 'experience',
     icon: 'fas fa-mountain',
+    color: '#208B3B', // サブカラー：Green
     title: '体験サポート',
     items: [
       '地域イベントを企画したいが、何から始めればいいか分からない。',
@@ -124,7 +131,7 @@ const ConcernsSection = () => {
                 aria-expanded={openAccordion === category.id}
                 onClick={() => toggleAccordion(category.id)}
               >
-                <i className={category.icon}></i>
+                <i className={category.icon} style={{ color: category.color }}></i>
                 <span>{category.title}</span>
                 <i className={`fas fa-chevron-down ${styles.accordionIcon}`}></i>
               </button>
