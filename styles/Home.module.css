@@ -778,64 +778,153 @@
 }
 
 /* ==========================================
-   11. Contact Section
+   11. Contact Section (お問い合わせフォーム)
 ========================================== */
 .contactSection {
   background-color: #FFFFFF;
   padding: 80px 0;
 }
 
-.contactContent {
-  display: flex;
-  gap: 60px;
-  align-items: center;
-}
-
-.contactLeft {
-  flex: 1;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.contactLeft.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.contactText {
-  font-size: 1.25rem;
+.contactIntro {
+  text-align: center;
+  font-size: 1.125rem;
   color: #666666;
-  line-height: 2;
-  margin-bottom: 2rem;
-}
-
-.contactRight {
-  flex: 1;
+  max-width: 700px;
+  margin: 0 auto 3rem;
+  line-height: 1.8;
   opacity: 0;
   transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.contactRight.visible {
+.contactIntro.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.contactIcons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
+.contactFormWrapper {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-.contactIcons i {
-  font-size: 5rem;
-  color: #248EC6;
+.contactForm {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contactForm.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 0.5rem;
+}
+
+.required {
+  color: #D1221A;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  border: 2px solid #E0E0E0;
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+  background: white;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: #248EC6;
+}
+
+.formTextarea {
+  resize: vertical;
+  min-height: 150px;
+}
+
+.formSubmitButton {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  background: #CD2272;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
-.contactIcons i:hover {
-  color: #CD2272;
-  transform: scale(1.1);
+.formSubmitButton:hover:not(:disabled) {
+  background: #D1221A;
+  transform: translateY(-2px);
+}
+
+.formSubmitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formNote {
+  text-align: center;
+  font-size: 0.875rem;
+  color: #999999;
+  margin-top: 1.5rem;
+  line-height: 1.6;
+}
+
+.errorMessage {
+  background: #FFE5E5;
+  color: #D1221A;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.thankYouMessage {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(36, 142, 198, 0.05) 0%, rgba(205, 34, 114, 0.05) 100%);
+  border-radius: 12px;
+}
+
+.thankYouMessage i {
+  font-size: 4rem;
+  color: #208B3B;
+  margin-bottom: 1rem;
+}
+
+.thankYouMessage h3 {
+  font-size: 1.75rem;
+  color: #0A0F0F;
+  margin-bottom: 1rem;
+}
+
+.thankYouMessage p {
+  font-size: 1.125rem;
+  color: #666666;
 }
 
 /* ==========================================
