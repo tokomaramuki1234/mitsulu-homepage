@@ -13,9 +13,6 @@ const Footer = () => {
               <p>
                 <a href="https://mitsulu.style/">https://mitsulu.style/</a>
               </p>
-              <p>
-                <a href="mailto:me@mitsulu.style">me@mitsulu.style</a>
-              </p>
             </div>
             <div className={styles.footerRight}>
               <p>様々な悩みの受け皿に。</p>
