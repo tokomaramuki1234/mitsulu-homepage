@@ -18,13 +18,13 @@ const Home: NextPage = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>三流（Mitsuryū）｜ 様々な悩みの受け皿に。</title>
         <meta name="description" content="三流（Mitsuryū）- 様々な悩みの受け皿に。小さな組織の手が回らないお困りごとを横断的に解決するIT系の何でも屋さん。分野をまたぎ、小さな課題をまとめて解決します。" />
         <meta name="keywords" content="三流,Mitsuryū,ファシリテーション,Web制作,デザイン,企画,研修,地域活性化,秋田" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/images/favicon.png" />
         
         {/* Google Fonts */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

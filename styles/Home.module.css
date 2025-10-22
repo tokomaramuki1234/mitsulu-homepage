@@ -1,10 +1,5 @@
 /* ==========================================
-   三流（Mitsuryū）LP Stylesheet - Next.js Version
-   デザインシステム: フラット・シンプル・モダン
-========================================== */
-
-/* ==========================================
-   1. Container & Global Styles
+   1. Container
 ========================================== */
 .container {
   max-width: 1200px;
@@ -13,18 +8,17 @@
 }
 
 /* ==========================================
-   2. Skip Link
+   2. Skip Link (Accessibility)
 ========================================== */
 .skipLink {
   position: absolute;
-  top: -100px;
+  top: -40px;
   left: 0;
-  background: #F5A623;
+  background: #4A8B6F;
   color: white;
-  padding: 0.5rem 1rem;
-  z-index: 1000;
-  transition: top 0.3s ease;
+  padding: 8px;
   text-decoration: none;
+  z-index: 100;
 }
 
 .skipLink:focus {
@@ -39,7 +33,7 @@
   top: 0;
   left: 0;
   height: 4px;
-  background: linear-gradient(90deg, #F5A623, #8BC78F);
+  background: linear-gradient(90deg, #4A8B6F 0%, #F5A623 100%);
   z-index: 9999;
   transition: width 0.1s ease;
 }
@@ -48,25 +42,41 @@
    4. Hero Section
 ========================================== */
 .heroSection {
+  padding: 0;
+  background: white;
+  text-align: center;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  background: linear-gradient(135deg, #FAF5EB 0%, #F5EFE0 100%);
-  padding: 60px 0;
+  justify-content: center;
 }
 
-.heroContent {
+.heroLogoContainer {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 60px 20px;
+}
+
+.heroMainLogo {
+  width: 100% !important;
+  max-width: 700px !important;
+  height: auto !important;
+  display: block !important;
 }
 
 .heroCenter {
   max-width: 900px;
+  margin: 0 auto;
   text-align: center;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.6s ease, transform 0.6s ease;
+  padding: 3rem 0;
 }
 
 .heroCenter.visible {
@@ -74,38 +84,26 @@
   transform: translateY(0);
 }
 
-.heroImage {
-  margin-bottom: 2rem;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.heroImage img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
 .heroTitle {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #333333;
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
+  margin-bottom: 2rem;
+  line-height: 1.2;
 }
 
 .heroSubtitle {
   font-size: 1.5rem;
   font-weight: 500;
-  color: #666666;
+  color: #555555;
   margin-bottom: 1.5rem;
+  line-height: 1.6;
 }
 
 .heroCatchphrase {
   font-size: 1.25rem;
   font-weight: 500;
-  color: #8BC78F;
+  color: #4A8B6F;
   margin-bottom: 0.5rem;
 }
 
@@ -127,27 +125,29 @@
   gap: 10px;
   background-color: #F5A623;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1.125rem;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
-  text-decoration: none;
 }
 
 .ctaButton:hover {
-  background-color: #E88C00;
+  background-color: #E89613;
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(245, 166, 35, 0.4);
-  color: white;
 }
 
 /* ==========================================
-   6. Section Titles
+   6. Services Section
 ========================================== */
+.servicesSection {
+  padding: 100px 0;
+  background-color: #FAF5EB;
+}
+
 .sectionTitle {
   text-align: center;
   font-size: 2.5rem;
@@ -155,15 +155,7 @@
   color: #333333;
   margin-bottom: 3rem;
   position: relative;
-  padding-bottom: 1rem;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.sectionTitle.visible {
-  opacity: 1;
-  transform: translateY(0);
+  padding-bottom: 20px;
 }
 
 .sectionTitle::after {
@@ -174,108 +166,63 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background-color: #F5A623;
+  background: linear-gradient(90deg, #4A8B6F 0%, #F5A623 100%);
   border-radius: 2px;
 }
 
-/* ==========================================
-   7. Services Section
-========================================== */
-.servicesSection {
-  background-color: #FFFFFF;
-  padding: 80px 0;
-}
-
-.servicesRow {
+.servicesGrid {
   display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
-  margin-bottom: 30px;
-}
-
-.servicesRow2 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.servicesRow3 {
-  grid-template-columns: repeat(3, 1fr);
+  margin-top: 50px;
 }
 
 .serviceCard {
   background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  padding: 40px 30px;
+  border-radius: 16px;
   text-align: center;
   transition: all 0.3s ease;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.serviceCard.visible {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-@keyframes fadeInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .serviceCard:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
 .serviceIcon {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 1.5rem;
-  font-size: 2rem;
-  color: white;
+  font-size: 3rem;
+  margin-bottom: 20px;
 }
 
 .serviceTitle {
-  font-size: 1.25rem;
-  font-weight: 700;
+  font-size: 1.4rem;
+  font-weight: 600;
   color: #333333;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 
 .serviceDescription {
   font-size: 1rem;
   color: #666666;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 /* ==========================================
-   8. Proposals Section
+   7. Proposals Section
 ========================================== */
 .proposalsSection {
-  background-color: #FAF5EB;
-  padding: 80px 0;
+  padding: 100px 0;
+  background-color: #FFFFFF;
 }
 
 .proposalsIntro {
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: #666666;
-  max-width: 800px;
-  margin: 0 auto 4rem;
-  line-height: 2;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.proposalsIntro.visible {
-  opacity: 1;
-  transform: translateY(0);
+  margin-bottom: 50px;
+  line-height: 1.8;
 }
 
 .proposalsList {
@@ -289,269 +236,202 @@
   grid-template-columns: 1fr 1fr;
   gap: 40px;
   align-items: center;
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.proposalItem.visible {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.proposalItem:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .proposalItemReverse {
-  grid-template-columns: 1fr 1fr;
+  direction: rtl;
 }
 
-.proposalItemReverse .proposalImage {
-  order: 2;
+.proposalItemReverse > * {
+  direction: ltr;
 }
 
-.proposalItemReverse .proposalContent {
-  order: 1;
+.proposalImage {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .proposalImage img {
   width: 100%;
   height: 300px;
   object-fit: cover;
-  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.proposalImage:hover img {
+  transform: scale(1.05);
+}
+
+.proposalContent {
+  padding: 20px;
 }
 
 .proposalTitle {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.6rem;
+  font-weight: 600;
   color: #333333;
-  margin-bottom: 1rem;
+  margin-bottom: 15px;
 }
 
 .proposalDescription {
+  font-size: 1.1rem;
+  color: #666666;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   8. Concerns Section
+========================================== */
+.concernsSection {
+  padding: 100px 0;
+  background-color: #F5EFE0;
+}
+
+.concernsList {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.concernItem {
+  background: white;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.concernQuestion {
+  width: 100%;
+  padding: 20px 25px;
+  background: white;
+  border: none;
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333333;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+}
+
+.concernQuestion:hover {
+  background-color: #FAF5EB;
+}
+
+.concernIcon {
+  font-size: 1.5rem;
+  color: #4A8B6F;
+  transition: transform 0.3s ease;
+}
+
+.concernIcon.open {
+  transform: rotate(45deg);
+}
+
+.concernAnswer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.concernAnswer.open {
+  max-height: 500px;
+}
+
+.concernAnswerContent {
+  padding: 0 25px 20px 25px;
   font-size: 1rem;
   color: #666666;
   line-height: 1.8;
 }
 
 /* ==========================================
-   9. Concerns Section (Accordion)
-========================================== */
-.concernsSection {
-  background-color: #FFFFFF;
-  padding: 80px 0;
-}
-
-.concernsAccordion {
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.accordionItem {
-  background: white;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-.accordionItem.visible {
-  animation: fadeInUp 0.6s ease forwards;
-}
-
-.accordionHeader {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  padding: 1.5rem;
-  background: #FAF5EB;
-  border: none;
-  cursor: pointer;
-  font-size: 1.125rem;
-  font-weight: 500;
-  color: #333333;
-  text-align: left;
-  transition: background-color 0.3s ease;
-}
-
-.accordionHeader:hover {
-  background-color: #F5EFE0;
-}
-
-.accordionHeader i:first-child {
-  font-size: 1.5rem;
-  color: #F5A623;
-}
-
-.accordionHeader span {
-  flex: 1;
-}
-
-.accordionIcon {
-  font-size: 1rem;
-  color: #666666;
-  transition: transform 0.3s ease;
-}
-
-.accordionHeader[aria-expanded="true"] .accordionIcon {
-  transform: rotate(180deg);
-}
-
-.accordionContent {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-}
-
-.accordionContentOpen {
-  max-height: 1000px;
-}
-
-.concernsList {
-  list-style: none;
-  padding: 1.5rem 2rem;
-}
-
-.concernsList li {
-  padding: 0.75rem 0;
-  padding-left: 1.5rem;
-  border-bottom: 1px solid #F5F5F5;
-  position: relative;
-  color: #666666;
-}
-
-.concernsList li:last-child {
-  border-bottom: none;
-}
-
-.concernsList li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #8BC78F;
-  font-weight: bold;
-}
-
-/* ==========================================
-   10. Philosophy Section
+   9. Philosophy Section
 ========================================== */
 .philosophySection {
-  background-color: #FAF5EB;
-  padding: 80px 0;
+  padding: 100px 0;
+  background: linear-gradient(135deg, #4A8B6F 0%, #3A7B5F 100%);
+  color: white;
 }
 
 .philosophyContent {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 60px;
   align-items: center;
 }
 
-.philosophyLeft,
-.philosophyRight {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.philosophyLeft.visible,
-.philosophyRight.visible {
-  opacity: 1;
-  transform: translateY(0);
+.philosophyLeft {
+  text-align: left;
 }
 
 .philosophyText {
-  font-size: 1.125rem;
-  color: #666666;
+  font-size: 1.2rem;
   line-height: 2;
+  margin-top: 30px;
+}
+
+.philosophyRight {
+  text-align: center;
 }
 
 .philosophyIcons {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.philosophyIcons i {
+  flex-direction: column;
+  gap: 30px;
   font-size: 3rem;
-  color: #8BC78F;
-  transition: all 0.3s ease;
-}
-
-.philosophyIcons i:hover {
-  color: #F5A623;
-  transform: scale(1.2);
 }
 
 /* ==========================================
-   11. Contact Section
+   10. Contact Section
 ========================================== */
 .contactSection {
-  background-color: #FFFFFF;
-  padding: 80px 0;
+  padding: 100px 0;
+  background-color: #FAF5EB;
 }
 
 .contactContent {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 60px;
   align-items: center;
 }
 
-.contactLeft,
-.contactRight {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.contactLeft.visible,
-.contactRight.visible {
-  opacity: 1;
-  transform: translateY(0);
+.contactLeft {
+  text-align: left;
 }
 
 .contactText {
-  font-size: 1.125rem;
-  color: #666666;
+  font-size: 1.2rem;
   line-height: 2;
-  margin-bottom: 2rem;
+  margin-top: 30px;
+  margin-bottom: 40px;
+  color: #666666;
+}
+
+.contactRight {
+  text-align: center;
 }
 
 .contactIcons {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-}
-
-.contactIcons i {
-  font-size: 5rem;
-  color: #8BC78F;
-  transition: all 0.3s ease;
-}
-
-.contactIcons i:hover {
-  color: #F5A623;
-  transform: scale(1.1);
+  flex-direction: column;
+  gap: 30px;
+  font-size: 3rem;
+  color: #4A8B6F;
 }
 
 /* ==========================================
-   12. Footer
+   11. Footer
 ========================================== */
 .footer {
-  background-color: #EDEBE3;
-  padding: 3rem 0 1rem;
+  padding: 60px 0 30px;
+  background-color: #333333;
+  color: #FFFFFF;
 }
 
 .footerContent {
@@ -559,32 +439,38 @@
 }
 
 .footerTagline {
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: #333333;
-  margin-bottom: 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #F5A623;
 }
 
 .footerBottom {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px solid #555555;
+}
+
+.footerLeft {
   text-align: left;
 }
 
 .footerLeft p {
-  color: #666666;
-  margin-bottom: 0.5rem;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
 .footerLeft a {
   color: #F5A623;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footerLeft a:hover {
-  color: #E88C00;
+  color: #E89613;
 }
 
 .footerRight {
@@ -593,22 +479,23 @@
 
 .socialIcons {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   justify-content: flex-end;
+  margin-bottom: 20px;
 }
 
 .socialIcon {
   width: 40px;
   height: 40px;
+  background-color: #4A8B6F;
   border-radius: 50%;
-  background-color: #8BC78F;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.125rem;
-  transition: all 0.3s ease;
   text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
 }
 
 .socialIcon:hover {
@@ -616,16 +503,13 @@
   transform: translateY(-3px);
 }
 
-.footerCopyright {
-  margin-top: 2rem;
-  padding-top: 1rem;
-  border-top: 1px solid #D0D0D0;
+.copyright {
+  font-size: 0.9rem;
   color: #999999;
-  font-size: 0.875rem;
 }
 
 /* ==========================================
-   13. Back to Top Button
+   12. Back to Top Button
 ========================================== */
 .backToTop {
   position: fixed;
@@ -633,37 +517,70 @@
   right: 30px;
   width: 50px;
   height: 50px;
-  background-color: #F5A623;
+  background: linear-gradient(135deg, #4A8B6F 0%, #F5A623 100%);
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease;
   z-index: 1000;
-  box-shadow: 0 4px 15px rgba(245, 166, 35, 0.3);
 }
 
-.backToTopVisible {
+.backToTop.visible {
   opacity: 1;
   visibility: visible;
 }
 
 .backToTop:hover {
-  background-color: #E88C00;
   transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   13. Animations & Utilities
+========================================== */
+.fadeIn {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fadeIn.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ==========================================
    14. Responsive Design
 ========================================== */
 
-/* Tablet: 768px-1199px */
-@media (max-width: 1199px) {
+/* Tablet */
+@media (max-width: 768px) {
   .container {
     padding: 0 15px;
+  }
+
+  .heroSection {
+    padding: 0;
+    min-height: 100vh;
+  }
+
+  .heroLogoContainer {
+    padding: 40px 15px;
+  }
+
+  .heroMainLogo {
+    max-width: 80%;
+    width: 80%;
+  }
+
+  .heroCenter {
+    max-width: 100%;
+    padding: 2rem 0;
   }
 
   .heroTitle {
@@ -674,53 +591,82 @@
     font-size: 1.25rem;
   }
 
-  .servicesRow3 {
-    grid-template-columns: repeat(2, 1fr);
+  .heroCatchphrase {
+    font-size: 1rem;
   }
 
-  .proposalItem,
-  .proposalItemReverse {
+  .sectionTitle {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .servicesGrid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+
+  .proposalItem {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .proposalItemReverse .proposalImage {
-    order: 1;
+  .proposalItemReverse {
+    direction: ltr;
   }
 
-  .proposalItemReverse .proposalContent {
-    order: 2;
+  .philosophyContent,
+  .contactContent {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .footerBottom {
+    flex-direction: column;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .footerLeft,
+  .footerRight {
+    text-align: center;
+  }
+
+  .socialIcons {
+    justify-content: center;
   }
 }
 
-/* Mobile: 767px以下 */
-@media (max-width: 767px) {
+/* Mobile */
+@media (max-width: 480px) {
   .container {
     padding: 0 10px;
   }
 
   .heroSection {
-    min-height: auto;
-    padding: 40px 0;
+    padding: 0;
+    min-height: 100vh;
   }
 
-  .heroCenter {
-    max-width: 100%;
+  .heroLogoContainer {
+    padding: 30px 10px;
+    margin-bottom: 60px;
+  }
+
+  .heroMainLogo {
+    max-width: 80%;
+    width: 80%;
   }
 
   .heroTitle {
-    font-size: 1.75rem;
+    font-size: 2.25rem;
   }
 
   .heroSubtitle {
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
 
   .heroCatchphrase {
     font-size: 1rem;
-  }
-
-  .heroImage {
-    margin-bottom: 1.5rem;
   }
 
   .sectionTitle {
@@ -735,119 +681,23 @@
   }
 
   .serviceCard {
-    padding: 1.5rem;
-  }
-
-  .proposalsIntro {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    padding: 30px 20px;
   }
 
   .proposalsList {
     gap: 40px;
   }
 
-  .proposalItem,
-  .proposalItemReverse {
-    grid-template-columns: 1fr;
-    padding: 1.5rem;
-  }
-
-  .proposalItemReverse .proposalImage {
-    order: 1;
-  }
-
-  .proposalItemReverse .proposalContent {
-    order: 2;
-  }
-
-  .proposalImage img {
-    height: 200px;
-  }
-
-  .proposalTitle {
-    font-size: 1.25rem;
-  }
-
-  .accordionHeader {
-    padding: 1rem;
-    font-size: 1rem;
-  }
-
-  .concernsList {
-    padding: 1rem 1.5rem;
-  }
-
-  .concernsList li {
-    font-size: 0.875rem;
-  }
-
-  .philosophyContent,
-  .contactContent {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .philosophyIcons,
-  .contactIcons {
-    gap: 20px;
-  }
-
-  .philosophyIcons i {
-    font-size: 2rem;
-  }
-
-  .contactIcons i {
-    font-size: 3rem;
-  }
-
-  .footerBottom {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    text-align: center;
-  }
-
-  .footerRight {
-    text-align: center;
-  }
-
-  .socialIcons {
-    justify-content: center;
-  }
-
   .ctaButton {
-    width: 100%;
-    justify-content: center;
-    padding: 0.875rem 1.5rem;
+    padding: 14px 28px;
     font-size: 1rem;
   }
-}
 
-/* Extra Small: 480px以下 */
-@media (max-width: 480px) {
-  .heroTitle {
-    font-size: 1.5rem;
-  }
-
-  .heroSubtitle {
-    font-size: 0.875rem;
-  }
-
-  .sectionTitle {
-    font-size: 1.5rem;
-  }
-
-  .serviceIcon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.5rem;
-  }
-
-  .serviceTitle {
-    font-size: 1.125rem;
-  }
-
-  .proposalTitle {
-    font-size: 1.125rem;
+  .backToTop {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.3rem;
   }
 }

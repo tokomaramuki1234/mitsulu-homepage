@@ -3,7 +3,11 @@
     "allow": [
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Read(//c/Users/Endeavor/Documents/009-三流/mitsulu-web/SVG/**)",
+      "WebFetch(domain:yolube.jp)",
+      "Read(//c/Users/Endeavor/Documents/001-YOLUBE/yolube_web/**)",
+      "Read(//c/Users/Endeavor/Desktop/**)"
     ],
     "deny": [],
     "ask": []
