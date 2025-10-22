@@ -108,10 +108,13 @@ const concernsData = [
 const ConcernsSection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
+  const [showAll, setShowAll] = useState(false);
 
   const toggleAccordion = (id: string) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
+
+  const displayedCategories = showAll ? concernsData : concernsData.slice(0, 3);
 
   return (
     <section ref={ref} className={styles.concernsSection}>
@@ -121,7 +124,7 @@ const ConcernsSection = () => {
         </h2>
 
         <div className={styles.concernsAccordion}>
-          {concernsData.map((category, index) => (
+          {displayedCategories.map((category, index) => (
             <div
               key={category.id}
               className={`${styles.accordionItem} ${isVisible ? styles.visible : ''}`}
@@ -150,6 +153,14 @@ const ConcernsSection = () => {
             </div>
           ))}
         </div>
+        
+        {!showAll && (
+          <div className={styles.showMoreContainer}>
+            <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>
+              さらに表示（{concernsData.length - 3}カテゴリ） <i className="fas fa-chevron-down"></i>
+            </button>
+          </div>
+        )}
         
         <SectionCta 
           text="この中に当てはまるお悩みはありましたか？"

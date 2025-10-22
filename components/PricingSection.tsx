@@ -8,7 +8,7 @@ const PricingSection = () => {
     <section ref={ref} className={styles.pricingSection} id="pricing">
       <div className={styles.container}>
         <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
-          料金目安
+          ご予算に合わせて柔軟に対応
         </h2>
         <p className={`${styles.pricingIntro} ${isVisible ? styles.visible : ''}`}>
           ご予算に応じて柔軟に対応いたします。まずはお気軽にご相談ください。

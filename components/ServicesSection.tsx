@@ -72,7 +72,7 @@ const ServicesSection = () => {
     <section ref={ref} className={styles.servicesSection}>
       <div className={styles.container}>
         <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
-          三流にできること
+          三流ができること
         </h2>
 
         {services.map((row, rowIndex) => (

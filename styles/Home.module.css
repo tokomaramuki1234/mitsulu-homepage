@@ -526,6 +526,32 @@
   font-weight: bold;
 }
 
+.showMoreContainer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.showMoreButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1rem 2rem;
+  background: white;
+  color: #248EC6;
+  border: 2px solid #248EC6;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.showMoreButton:hover {
+  background: #248EC6;
+  color: white;
+  transform: translateY(-2px);
+}
+
 /* ==========================================
    9.2. Pricing Section (料金目安)
 ========================================== */

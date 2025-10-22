@@ -29,7 +29,7 @@ const AchievementsSection = () => {
     <section ref={ref} className={styles.achievementsSection}>
       <div className={styles.container}>
         <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
-          三流の実績
+          これまでの実績
         </h2>
         <div className={styles.statsGrid}>
           {stats.map((stat, index) => (

@@ -23,9 +23,9 @@ const Home: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>三流（Mitsuryū）｜ 様々な悩みの受け皿に。</title>
-        <meta name="description" content="三流（Mitsuryū）- 様々な悩みの受け皿に。小さな組織の手が回らないお困りごとを横断的に解決するIT系の何でも屋さん。分野をまたぎ、小さな課題をまとめて解決します。" />
-        <meta name="keywords" content="三流,Mitsuryū,ファシリテーション,Web制作,デザイン,企画,研修,地域活性化,秋田" />
+        <title>三流（Mitsuryū）｜ 様々な悩みの受け皿に。小さな組織のIT課題を横断的に解決</title>
+        <meta name="description" content="三流（Mitsuryū）は小規模組織・個人事業主向けのIT課題解決サービス。Web制作、システム開発、ファシリテーション、企画・研修など、手が回らないお困りごとを横断的に解決します。時間単価5,500円〜、月額16,500円〜。50+プロジェクト実績。様々な悩みの受け皿に。" />
+        <meta name="keywords" content="三流,Mitsuryū,IT課題解決,Web制作,システム開発,ファシリテーション,企画,研修,小規模組織,個人事業主,業務効率化,地域活性化,秋田" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" type="image/png" href="/images/favicon.png" />
         
@@ -47,6 +47,50 @@ const Home: NextPage = () => {
               gtag('js', new Date());
               gtag('config', 'G-8G3032S69R');
             `,
+          }}
+        />
+        
+        {/* Schema.org 構造化データ（JSON-LD） */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ProfessionalService",
+              "name": "三流（Mitsulu）",
+              "alternateName": "Mitsuryū",
+              "url": "https://mitsulu.style",
+              "logo": "https://mitsulu.style/images/topimg.svg",
+              "description": "小さな組織の手が回らないお困りごとを横断的に解決するIT系の何でも屋さん。Web制作、システム開発、ファシリテーション、企画・研修など幅広く対応。",
+              "areaServed": {
+                "@type": "Country",
+                "name": "JP"
+              },
+              "priceRange": "¥5,500 - ¥100,000+",
+              "telephone": "",
+              "email": "",
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "JP",
+                "addressRegion": "秋田県"
+              },
+              "serviceType": [
+                "Web制作",
+                "システム開発",
+                "ファシリテーション",
+                "企画・研修",
+                "デザイン",
+                "地域活性化",
+                "業務効率化"
+              ],
+              "slogan": "様々な悩みの受け皿に - All worries welcome here",
+              "foundingDate": "2023",
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "reviewCount": "20"
+              }
+            })
           }}
         />
       </Head>
