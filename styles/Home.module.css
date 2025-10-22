@@ -67,8 +67,8 @@
 
 .heroMainLogo {
   display: block;
-  max-width: 70%;
-  width: 70%;
+  max-width: 50%;
+  width: 50%;
   height: auto;
 }
 
@@ -667,8 +667,8 @@
   }
 
   .heroMainLogo {
-    max-width: 90% !important;
-    width: 90% !important;
+    max-width: 80%;
+    width: 80%;
   }
 
   .sectionTitle {

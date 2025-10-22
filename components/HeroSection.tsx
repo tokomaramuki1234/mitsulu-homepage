@@ -15,7 +15,6 @@ const HeroSection = () => {
           src="/images/topimg.svg"
           alt="三流ビジュアル"
           className={styles.heroMainLogo}
-          style={{ maxWidth: '70%', width: '70%', height: 'auto' }}
         />
       </div>
       <div className={styles.container}>
