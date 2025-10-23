@@ -1,0 +1,26 @@
+# Xserver用 .htaccess - 修正版
+
+# キャッシュ設定（Xserverデフォルト）
+SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
+SetEnvIf Request_URI ".*" Ngx_Cache_AllCacheMode
+
+# HTTPSリダイレクト（正しい設定）
+RewriteEngine on
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# UTF-8エンコーディング
+AddDefaultCharset UTF-8
+
+# インデックスファイル
+DirectoryIndex index.html index.php
+
+# セキュリティ：.htaccessファイル自体へのアクセスを拒否
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+# PHPファイルへのアクセスを明示的に許可
+<FilesMatch "\.(php)$">
+    Require all granted
+</FilesMatch>
