@@ -6,7 +6,10 @@ const ContactSection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const [formData, setFormData] = useState({
     name: '',
+    email: '',
+    phone: '',
     company: '',
+    category: '',
     message: ''
   });
   const [submitting, setSubmitting] = useState(false);
@@ -37,7 +40,7 @@ const ContactSection = () => {
 
       if (response.ok) {
         setSubmitted(true);
-        setFormData({ name: '', company: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', company: '', category: '', message: '' });
       } else {
         setError('送信に失敗しました。もう一度お試しください。');
       }
@@ -67,35 +70,95 @@ const ContactSection = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={`${styles.contactForm} ${isVisible ? styles.visible : ''}`}>
-              <div className={styles.formGroup}>
-                <label htmlFor="name" className={styles.formLabel}>
-                  お名前 <span className={styles.required}>*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className={styles.formInput}
-                  placeholder="山田 太郎"
-                />
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="name" className={styles.formLabel}>
+                    お名前 <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                    className={styles.formInput}
+                    placeholder="山田 太郎"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="email" className={styles.formLabel}>
+                    メールアドレス <span className={styles.required}>*</span>
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className={styles.formInput}
+                    placeholder="example@email.com"
+                  />
+                </div>
+              </div>
+
+              <div className={styles.formRow}>
+                <div className={styles.formGroup}>
+                  <label htmlFor="phone" className={styles.formLabel}>
+                    電話番号（任意）
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className={styles.formInput}
+                    placeholder="090-1234-5678"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label htmlFor="company" className={styles.formLabel}>
+                    会社名・団体名（任意）
+                  </label>
+                  <input
+                    type="text"
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    className={styles.formInput}
+                    placeholder="株式会社○○"
+                  />
+                </div>
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="company" className={styles.formLabel}>
-                  会社名・団体名（任意）
+                <label htmlFor="category" className={styles.formLabel}>
+                  お問い合わせ種類 <span className={styles.required}>*</span>
                 </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
+                <select
+                  id="category"
+                  name="category"
+                  value={formData.category}
                   onChange={handleChange}
-                  className={styles.formInput}
-                  placeholder="株式会社○○"
-                />
+                  required
+                  className={styles.formSelect}
+                >
+                  <option value="">選択してください</option>
+                  <option value="facilitation">ファシリテーション</option>
+                  <option value="planning">企画・研修</option>
+                  <option value="design">デザイン・制作</option>
+                  <option value="web">Web構築・開発・運用</option>
+                  <option value="pm">進行管理</option>
+                  <option value="education">教育・講習</option>
+                  <option value="experience">体験サポート</option>
+                  <option value="estimate">料金見積もり</option>
+                  <option value="other">その他</option>
+                </select>
               </div>
 
               <div className={styles.formGroup}>
@@ -110,7 +173,7 @@ const ContactSection = () => {
                   required
                   rows={6}
                   className={styles.formTextarea}
-                  placeholder="お困りごとやご相談内容をお聞かせください..."
+                  placeholder="お困りごとやご相談内容を具体的にお聞かせください...&#10;&#10;例：&#10;・Webサイトのリニューアルを検討しています&#10;・社員研修の企画をお願いしたい&#10;・予算は○○円程度を考えています"
                 />
               </div>
 
@@ -137,8 +200,8 @@ const ContactSection = () => {
               </button>
 
               <p className={styles.formNote}>
-                ※メールアドレス・電話番号の入力は不要です。<br />
-                返信が必要な場合は、メッセージ欄にご記入ください。
+                ※お送りいただいた情報は、お問い合わせ対応の目的でのみ使用いたします。<br />
+                ※通常、1〜2営業日以内にご返信いたします。
               </p>
             </form>
           )}
