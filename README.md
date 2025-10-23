@@ -114,42 +114,209 @@
 
 ---
 
+## ⚠️ 重要：インフラ構成の理解（必読）
+
+### 🚨 開発時の注意事項
+
+このプロジェクトは **ハイブリッド構成** を採用しています：
+
+#### **1. メインサイト：Vercel（Next.js）**
+- **URL**: `https://mitsulu.style`
+- **ホスティング**: Vercel
+- **技術**: Next.js / React / TypeScript
+- **DNS設定**: A レコード `@` → `216.198.79.1` (Vercel IP)
+- **特徴**: 
+  - ✅ Next.js アプリケーションが動作
+  - ❌ **PHP は動作しない**
+  - ❌ **直接 PHP ファイルをアップロードできない**
+
+#### **2. フォームAPI：Xserver（PHP）**
+- **URL**: `https://form.mitsulu.style`
+- **ホスティング**: Xserver
+- **技術**: PHP 8.3+
+- **DNS設定**: A レコード `form` → Xserver IP
+- **特徴**:
+  - ✅ PHP が動作する
+  - ✅ `mb_send_mail()` でメール送信可能
+  - ✅ Xserver のメールサーバーを利用可能
+
+#### **3. ドメイン管理：Xserver**
+- **ドメイン**: `mitsulu.style`
+- **DNS管理**: Xserver
+- **特徴**:
+  - ドメイン自体は Xserver で取得・管理
+  - DNS レコードで振り分け先を制御
+  - サブドメインも Xserver で設定可能
+
+---
+
+### ❌ よくある誤解と注意点
+
+#### **誤解1: mitsulu.style に PHP ファイルをアップロードできる**
+❌ **間違い**: `https://mitsulu.style/contact.php` にアクセスできる  
+✅ **正解**: メインドメインは Vercel なので PHP は動作しない
+
+#### **誤解2: Xserver に何もホストしていない**
+❌ **間違い**: Xserver はドメイン管理だけで、ファイルはアップロードできない  
+✅ **正解**: サブドメイン (`form.mitsulu.style`) を使えば Xserver に PHP をホストできる
+
+#### **誤解3: Vercel で PHP が動く**
+❌ **間違い**: Vercel に PHP ファイルをデプロイすれば動作する  
+✅ **正解**: Vercel は Node.js ベース。PHP は動作しない（Serverless Functions を使う必要がある）
+
+#### **誤解4: すべてのファイルを Xserver にアップロードする**
+❌ **間違い**: Next.js のファイルを FTP で Xserver にアップロード  
+✅ **正解**: Next.js は GitHub → Vercel の自動デプロイ。Xserver には PHP だけ
+
+---
+
+### ✅ 正しい開発フロー
+
+#### **Next.js（メインサイト）を変更する場合**
+```bash
+# ローカルで編集
+code components/ContactSection.tsx
+
+# GitHub にプッシュ
+git add .
+git commit -m "Update contact section"
+git push origin main
+
+# Vercel が自動デプロイ（2〜5分）
+# https://mitsulu.style に自動反映
+```
+
+#### **PHP（フォームAPI）を変更する場合**
+```bash
+# ローカルで編集
+code contact.php
+
+# FileZilla で Xserver にアップロード
+# アップロード先: /mitsulu.style/public_html/form/contact.php
+# パーミッション: 644
+
+# すぐに反映
+# https://form.mitsulu.style/contact.php
+```
+
+---
+
+### 🔍 トラブルシューティング：環境の確認方法
+
+#### **現在どのサーバーにアクセスしているか確認**
+
+**方法1: ブラウザの開発者ツール**
+```
+F12 → Network タブ → ファイルをクリック → Headers
+Response Headers を確認:
+- server: Vercel → Vercel にアクセス中
+- server: nginx → Xserver にアクセス中
+```
+
+**方法2: コマンドライン**
+```bash
+# Windows
+nslookup mitsulu.style
+# → 216.198.79.1 (Vercel)
+
+nslookup form.mitsulu.style
+# → Xserver IP
+```
+
+---
+
+### 📊 DNS レコード一覧（重要）
+
+| ホスト名 | 種別 | 値 | 接続先 | 用途 |
+|----------|------|-----|--------|------|
+| `@` (mitsulu.style) | A | `216.198.79.1` | **Vercel** | Next.js メインサイト |
+| `www` | CNAME | `cname.vercel-dns.com` | **Vercel** | www サブドメイン |
+| `form` | A | Xserver IP | **Xserver** | PHP フォームAPI |
+
+**ポイント**:
+- メインドメイン (`mitsulu.style`) = Vercel
+- サブドメイン (`form.mitsulu.style`) = Xserver
+- 両方とも同じドメインだが、**別のサーバー**
+
+---
+
+### 🎯 今後の開発での注意点
+
+#### **新しいAPI機能を追加する場合**
+
+**選択肢1: Next.js API Routes（推奨）**
+- Next.js の機能を使う
+- ファイル: `/pages/api/xxx.ts`
+- URL: `https://mitsulu.style/api/xxx`
+- 言語: TypeScript / JavaScript
+- 用途: データ取得、簡単な処理
+
+**選択肢2: PHP（Xserver）**
+- サブドメインを使う
+- ファイル: `/form/xxx.php`
+- URL: `https://form.mitsulu.style/xxx.php`
+- 言語: PHP
+- 用途: メール送信、既存PHP資産の活用
+
+**選択肢3: 外部API**
+- SendGrid, Formspree など
+- サーバーレス
+- 用途: 専門的な機能（メール、決済など）
+
+---
+
 ## 🏗️ システム構成
 
-### インフラ構成図
+### インフラ構成図（詳細版）
 
 ```
-┌─────────────────────────────────────────┐
-│ 開発者（まことさん）                     │
-│ ├─ ローカル環境（Next.js 開発）          │
-│ └─ Visual Studio Code / エディタ        │
-└─────────────────────────────────────────┘
-              ↓ git push
-┌─────────────────────────────────────────┐
-│ GitHub                                  │
-│ └─ tokomaramuki1234/mitsulu-homepage    │
-│    ├─ main ブランチ                     │
-│    └─ ソースコード管理                   │
-└─────────────────────────────────────────┘
-              ↓ Webhook（自動デプロイ）
-┌─────────────────────────────────────────┐
-│ Vercel（ホスティング）                   │
-│ ├─ 自動ビルド（Next.js）                │
-│ ├─ CDN 配信（グローバル）               │
-│ ├─ SSL 証明書自動発行                   │
-│ └─ https://mitsulu-homepage.vercel.app  │
-└─────────────────────────────────────────┘
-              ↓ カスタムドメイン
-┌─────────────────────────────────────────┐
-│ DNS（Xserver）                          │
-│ ├─ A レコード: @ → 216.198.79.1        │
-│ └─ CNAME: www → cname.vercel-dns.com   │
-└─────────────────────────────────────────┘
-              ↓
-┌─────────────────────────────────────────┐
-│ 本番環境                                │
-│ └─ https://mitsulu.style                │
-└─────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                    開発者（まことさん）                        │
+│  ├─ ローカル環境（Next.js 開発）                              │
+│  └─ Visual Studio Code / エディタ                            │
+└──────────────────────────────────────────────────────────────┘
+         ↓ git push                      ↓ FTP upload
+         ↓                               ↓
+┌─────────────────────────┐    ┌──────────────────────────────┐
+│   GitHub                │    │   Xserver FTP                │
+│   mitsulu-homepage      │    │   /form/contact.php          │
+│   - Next.js ソース      │    │   - PHP ファイルのみ          │
+│   - React コンポーネント │    └──────────────────────────────┘
+└─────────────────────────┘              ↓
+         ↓ Webhook                       ↓
+         ↓                               ↓
+┌─────────────────────────┐    ┌──────────────────────────────┐
+│   Vercel                │    │   Xserver                    │
+│   ホスティング           │    │   サブドメイン用             │
+│   - 自動ビルド          │    │   - PHP 8.3 実行             │
+│   - CDN 配信            │    │   - メール送信               │
+│   - SSL 証明書          │    │   - mb_send_mail()           │
+└─────────────────────────┘    └──────────────────────────────┘
+         ↓                               ↓
+         ↓                               ↓
+┌──────────────────────────────────────────────────────────────┐
+│                    DNS（Xserver 管理）                        │
+│  ┌────────────────────────┐  ┌────────────────────────────┐ │
+│  │ @ (mitsulu.style)      │  │ form.mitsulu.style         │ │
+│  │ A → 216.198.79.1       │  │ A → Xserver IP             │ │
+│  │ → Vercel へ            │  │ → Xserver へ               │ │
+│  └────────────────────────┘  └────────────────────────────┘ │
+└──────────────────────────────────────────────────────────────┘
+         ↓                               ↓
+         ↓                               ↓
+┌─────────────────────────┐    ┌──────────────────────────────┐
+│   本番環境（Next.js）    │    │   本番環境（PHP）             │
+│   https://mitsulu.style │    │   https://form.mitsulu.style │
+│   - トップページ        │    │   - contact.php              │
+│   - サービス紹介        │    │   - メール送信API            │
+│   - お問い合わせUI      │────┼──→ フォーム送信先          │
+└─────────────────────────┘    └──────────────────────────────┘
+
+【重要ポイント】
+✅ mitsulu.style = Vercel（Next.js）← PHPは動かない！
+✅ form.mitsulu.style = Xserver（PHP）← PHPが動く！
+✅ 両方とも DNS は Xserver で管理
+✅ ドメインは同じだが、サーバーは別物
 ```
 
 ---
