@@ -29,8 +29,8 @@ const ContactSection = () => {
     setError('');
 
     try {
-      // Formspreeを使用（無料プラン）
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      // XserverのPHPスクリプトに送信
+      const response = await fetch('https://mitsulu.style/contact.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -38,11 +38,13 @@ const ContactSection = () => {
         body: JSON.stringify(formData)
       });
 
-      if (response.ok) {
+      const result = await response.json();
+
+      if (response.ok && result.success) {
         setSubmitted(true);
         setFormData({ name: '', email: '', phone: '', company: '', category: '', message: '' });
       } else {
-        setError('送信に失敗しました。もう一度お試しください。');
+        setError(result.message || '送信に失敗しました。もう一度お試しください。');
       }
     } catch (err) {
       setError('送信に失敗しました。もう一度お試しください。');
