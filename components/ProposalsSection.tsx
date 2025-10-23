@@ -1,7 +1,10 @@
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import SectionCta from './SectionCta';
 import Image from 'next/image';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Navigation } from 'swiper/modules';
 
 const proposals = [
   {
@@ -108,6 +111,62 @@ const proposals = [
 
 const ProposalsSection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 1024);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // SSR時はnullを返す
+  if (isMobile === null) {
+    return (
+      <section ref={ref} className={styles.proposalsSection}>
+        <div className={styles.container}>
+          <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
+            三流の強み ― 横断的なサポート
+          </h2>
+        </div>
+      </section>
+    );
+  }
+
+  const ProposalCard = ({ proposal, index }: { proposal: typeof proposals[0], index: number }) => (
+    <article
+      className={`${styles.proposalItem} ${
+        index % 2 === 1 ? styles.proposalItemReverse : ''
+      } ${isVisible ? styles.visible : ''}`}
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <div className={styles.proposalImage}>
+        <img
+          src={proposal.image}
+          alt={proposal.alt}
+          width={600}
+          height={400}
+        />
+      </div>
+      <div className={styles.proposalContent}>
+        <h3 className={styles.proposalTitle}>
+          <span
+            className={styles.proposalNumber}
+            style={{ '--proposal-color': proposal.color } as React.CSSProperties & { '--proposal-color': string }}
+          >
+            <i className={proposal.icon}></i>
+            {proposal.number}
+          </span>
+          <span className={styles.proposalTitleText}>{proposal.title}</span>
+        </h3>
+        <p className={styles.proposalDescription}>{proposal.description}</p>
+      </div>
+    </article>
+  );
 
   return (
     <section ref={ref} className={styles.proposalsSection}>
@@ -121,39 +180,35 @@ const ProposalsSection = () => {
           お客様のニーズに柔軟に応えます。
         </p>
 
-        <div className={styles.proposalsList}>
-          {proposals.map((proposal, index) => (
-            <article
-              key={proposal.id}
-              className={`${styles.proposalItem} ${
-                index % 2 === 1 ? styles.proposalItemReverse : ''
-              } ${isVisible ? styles.visible : ''}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+        {/* PC表示: 交互レイアウト */}
+        {!isMobile && (
+          <div className={styles.proposalsList}>
+            {proposals.map((proposal, index) => (
+              <ProposalCard key={proposal.id} proposal={proposal} index={index} />
+            ))}
+          </div>
+        )}
+
+        {/* タブレット・スマホ表示: スライダー */}
+        {isMobile && (
+          <div className={styles.proposalsSlider}>
+            <Swiper
+              modules={[Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              navigation={true}
+              loop={false}
+              className={styles.proposalsSwiper}
             >
-              <div className={styles.proposalImage}>
-                <img
-                  src={proposal.image}
-                  alt={proposal.alt}
-                  width={600}
-                  height={400}
-                />
-              </div>
-              <div className={styles.proposalContent}>
-                <h3 className={styles.proposalTitle}>
-                  <span
-                    className={styles.proposalNumber}
-                    style={{ '--proposal-color': proposal.color } as React.CSSProperties & { '--proposal-color': string }}
-                  >
-                    <i className={proposal.icon}></i>
-                    {proposal.number}
-                  </span>
-                  <span className={styles.proposalTitleText}>{proposal.title}</span>
-                </h3>
-                <p className={styles.proposalDescription}>{proposal.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+              {proposals.map((proposal, index) => (
+                <SwiperSlide key={proposal.id}>
+                  <ProposalCard proposal={proposal} index={index} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        )}
         
         <SectionCta 
           text="その他、「こんなことはできる？」などのご相談も大歓迎！"

@@ -518,6 +518,51 @@
   line-height: 1.8;
 }
 
+/* Proposals Slider for Mobile/Tablet */
+.proposalsSlider {
+  margin-bottom: 3rem;
+}
+
+.proposalsSwiper {
+  padding: 2rem 0 4rem 0;
+}
+
+.proposalsSwiper :global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.proposalsSwiper :global(.swiper-pagination) {
+  bottom: 0 !important;
+}
+
+.proposalsSwiper :global(.swiper-pagination-bullet) {
+  background: #248EC6;
+  opacity: 0.5;
+  width: 12px;
+  height: 12px;
+}
+
+.proposalsSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: #CD2272;
+}
+
+.proposalsSwiper :global(.swiper-button-next),
+.proposalsSwiper :global(.swiper-button-prev) {
+  color: #248EC6;
+  width: 40px;
+  height: 40px;
+}
+
+.proposalsSwiper :global(.swiper-button-next):after,
+.proposalsSwiper :global(.swiper-button-prev):after {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 /* ==========================================
    9. Concerns Section (アコーディオン)
 ========================================== */
@@ -791,6 +836,51 @@
   transform: translateY(0);
 }
 
+/* Pricing Slider for Mobile/Tablet */
+.pricingSlider {
+  margin-bottom: 3rem;
+}
+
+.pricingSwiper {
+  padding: 2rem 0 4rem 0;
+}
+
+.pricingSwiper :global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.pricingSwiper :global(.swiper-pagination) {
+  bottom: 0 !important;
+}
+
+.pricingSwiper :global(.swiper-pagination-bullet) {
+  background: #248EC6;
+  opacity: 0.5;
+  width: 12px;
+  height: 12px;
+}
+
+.pricingSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: #CD2272;
+}
+
+.pricingSwiper :global(.swiper-button-next),
+.pricingSwiper :global(.swiper-button-prev) {
+  color: #248EC6;
+  width: 40px;
+  height: 40px;
+}
+
+.pricingSwiper :global(.swiper-button-next):after,
+.pricingSwiper :global(.swiper-button-prev):after {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 /* ==========================================
    9.5. Achievements Section (実績)
 ========================================== */
@@ -843,6 +933,51 @@
   font-size: 1.125rem;
   color: #666666;
   font-weight: 500;
+}
+
+/* Achievements Slider for Mobile/Tablet */
+.achievementsSlider {
+  margin-bottom: 3rem;
+}
+
+.achievementsSwiper {
+  padding: 2rem 0 4rem 0;
+}
+
+.achievementsSwiper :global(.swiper-slide) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.achievementsSwiper :global(.swiper-pagination) {
+  bottom: 0 !important;
+}
+
+.achievementsSwiper :global(.swiper-pagination-bullet) {
+  background: #248EC6;
+  opacity: 0.5;
+  width: 12px;
+  height: 12px;
+}
+
+.achievementsSwiper :global(.swiper-pagination-bullet-active) {
+  opacity: 1;
+  background: #CD2272;
+}
+
+.achievementsSwiper :global(.swiper-button-next),
+.achievementsSwiper :global(.swiper-button-prev) {
+  color: #248EC6;
+  width: 40px;
+  height: 40px;
+}
+
+.achievementsSwiper :global(.swiper-button-next):after,
+.achievementsSwiper :global(.swiper-button-prev):after {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 /* ==========================================
@@ -1228,6 +1363,8 @@
 
   .proposalItem {
     padding: 2rem 0;
+    flex-direction: column !important;
+    gap: 20px;
   }
 
   .proposalImage img {
