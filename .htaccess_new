@@ -1,0 +1,25 @@
+# Xserver用 .htaccess（PHPファイルアクセス許可）
+
+# キャッシュ設定（Xserverデフォルト）
+SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
+SetEnvIf Request_URI ".*" Ngx_Cache_AllCacheMode
+
+# PHPファイルへのアクセスを明示的に許可
+<FilesMatch "\.(php|php[0-9]?)$">
+    Require all granted
+</FilesMatch>
+
+# インデックスファイルの優先順位
+DirectoryIndex index.html index.php
+
+# セキュリティ：.htaccessファイル自体へのアクセスを拒否
+<Files ".htaccess">
+    Require all denied
+</Files>
+
+# UTF-8エンコーディング
+AddDefaultCharset UTF-8
+
+# エラーページのカスタマイズ（オプション）
+# ErrorDocument 404 /404.html
+# ErrorDocument 500 /500.html
