@@ -29,8 +29,8 @@ const ContactSection = () => {
     setError('');
 
     try {
-      // XserverのPHPスクリプトに送信
-      const response = await fetch('https://mitsulu.style/contact.php', {
+      // Vercel API Routes に送信
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

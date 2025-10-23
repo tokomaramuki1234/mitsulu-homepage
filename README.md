@@ -8,6 +8,32 @@
 - **Vercel デフォルト URL**: https://mitsulu-homepage.vercel.app
 - **GitHub リポジトリ**: https://github.com/tokomaramuki1234/mitsulu-homepage
 
+## 📧 お問い合わせフォーム設定
+
+### API Routes (Vercel Serverless Functions)
+
+お問い合わせフォームは Vercel の API Routes を使用してメール送信します。
+
+- **エンドポイント**: `/api/contact`
+- **メール送信**: Nodemailer + Xserver SMTP
+- **送信先**: mk@mitsulu.style
+- **自動返信**: あり
+
+### 環境変数の設定
+
+Vercel ダッシュボードで以下の環境変数を設定してください：
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `SMTP_USER` | `noreply@mitsulu.style` | 送信用メールアドレス |
+| `SMTP_PASS` | `********` | メールパスワード |
+
+**設定方法**:
+1. Vercel Dashboard → Project Settings → Environment Variables
+2. 上記の変数を追加
+3. Production、Preview、Development 全てにチェック
+4. Save
+
 ---
 
 ## 📊 プロジェクト概要
