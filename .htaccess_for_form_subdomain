@@ -1,0 +1,21 @@
+# form.mitsulu.style サブドメイン用 .htaccess
+
+# キャッシュ設定
+SetEnvIf Request_URI ".*" Ngx_Cache_NoCacheMode=off
+SetEnvIf Request_URI ".*" Ngx_Cache_AllCacheMode
+
+# HTTPSリダイレクト（シンプル版）
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# UTF-8エンコーディング
+AddDefaultCharset UTF-8
+
+# PHPファイルへのアクセスを許可
+<FilesMatch "\.php$">
+    Require all granted
+</FilesMatch>
+
+# インデックスファイル
+DirectoryIndex index.php index.html
