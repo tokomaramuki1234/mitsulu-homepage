@@ -10,29 +10,30 @@
 
 ## 📧 お問い合わせフォーム設定
 
-### API Routes (Vercel Serverless Functions)
+### サブドメイン方式（PHP on Xserver）
 
-お問い合わせフォームは Vercel の API Routes を使用してメール送信します。
+お問い合わせフォームは Xserver のサブドメインで動作する PHP を使用します。
 
-- **エンドポイント**: `/api/contact`
-- **メール送信**: Nodemailer + Xserver SMTP
+- **エンドポイント**: `https://form.mitsulu.style/contact.php`
+- **サブドメイン**: `form.mitsulu.style` → Xserver
+- **メインドメイン**: `mitsulu.style` → Vercel
+- **メール送信**: PHP `mb_send_mail()`
 - **送信先**: mk@mitsulu.style
 - **自動返信**: あり
 
-### 環境変数の設定
+### DNS 設定
 
-Vercel ダッシュボードで以下の環境変数を設定してください：
+| ホスト名 | 種別 | 値 | 用途 |
+|----------|------|----|------|
+| @ | A | 216.198.79.1 | Vercel (メインサイト) |
+| www | CNAME | cname.vercel-dns.com | Vercel (www) |
+| form | A | Xserver IP | Xserver (お問い合わせAPI) |
 
-| Variable | Value | Description |
-|----------|-------|-------------|
-| `SMTP_USER` | `noreply@mitsulu.style` | 送信用メールアドレス |
-| `SMTP_PASS` | `********` | メールパスワード |
+### Xserver 設定
 
-**設定方法**:
-1. Vercel Dashboard → Project Settings → Environment Variables
-2. 上記の変数を追加
-3. Production、Preview、Development 全てにチェック
-4. Save
+1. サブドメイン `form` を作成
+2. `/mitsulu.style/public_html/form/` に `contact.php` をアップロード
+3. パーミッション：644
 
 ---
 
