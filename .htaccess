@@ -1,0 +1,8 @@
+# Xserver WAF除外設定（PHP実行用）
+<Files "test.php">
+  SecRuleEngine Off
+</Files>
+
+<Files "contact.php">
+  SecRuleEngine Off
+</Files>
