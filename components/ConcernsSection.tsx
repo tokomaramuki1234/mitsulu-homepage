@@ -6,20 +6,20 @@ import SectionCta from './SectionCta';
 const concernsData = [
   {
     id: 'facilitation',
-    icon: 'fas fa-bullseye',
+    icon: 'fas fa-microphone',
     color: '#248EC6', // メインカラー：Cyan
     title: 'ファシリテーション',
     items: [
       '会議がいつも長引いて結論が出ない。進行を任せたい。',
       '社内のコミュニケーションが希薄。活性化させたい。',
       'プレゼンテーションやワークショップの進行に不安がある。',
-      'ブレインストーミングをうまく引き出せない。',
+      '現場の意見をうまく引き出せない。',
       'オンライン会議のセッティングや進行が苦手。'
     ]
   },
   {
     id: 'planning',
-    icon: 'fas fa-puzzle-piece',
+    icon: 'fas fa-users',
     color: '#CD2272', // メインカラー：Magenta
     title: '企画・研修',
     items: [
@@ -39,7 +39,7 @@ const concernsData = [
       'チラシや名刺のデザインを頼みたいが、どこに頼めばいいか分からない。',
       '会社案内のパンフレットを作りたい。',
       'イベントのポスターやフライヤーを作りたい。',
-      'ロゴマークを作りたいが、デザイナーに依頼する予算がない。',
+      'ロゴマークを作りたいが、デザイナーへの伝手がない。',
       'ブランドイメージを統一したいが、どうすればいいか分からない。',
       '商品・サービスの魅力を伝える動画を作りたい。'
     ]
@@ -61,8 +61,8 @@ const concernsData = [
   },
   {
     id: 'management',
-    icon: 'fas fa-cogs',
-    color: '#1B2B59', // サブカラー：Navy
+    icon: 'fas fa-diagram-project',
+    color: '#D1221A', // サブカラー：Red
     title: '進行管理',
     items: [
       'プロジェクトの進行管理が苦手。外部の目が欲しい。',
@@ -75,14 +75,14 @@ const concernsData = [
   {
     id: 'education',
     icon: 'fas fa-graduation-cap',
-    color: '#D1221A', // サブカラー：Red
+    color: '#1B2B59', // サブカラー：Navy
     title: '教育・講習',
     items: [
       'パソコン、スマホの操作が分からない。もっと上手に使いたい。',
       'Excelやパワポの使い方を教えてほしい。',
       'AIツールを仕事に活かしたいが、どこから始めればいいか分からない。',
       '動画編集を覚えたいが、独学では難しい。',
-      'デザインソフト（Photoshop、Illustrator）を使えるようになりたい。',
+      'デザインソフト（Adobe Photoshop、Illustrator、Premiere proなど）を使えるようになりたい。',
       '日本語教育のプログラムを用意したい。',
       '外国人スタッフとのコミュニケーションがうまくいかない。',
       'タブレットを授業で使いたいが、設定が分からない。'
@@ -108,13 +108,10 @@ const concernsData = [
 const ConcernsSection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
   const [openAccordion, setOpenAccordion] = useState<string | null>(null);
-  const [showAll, setShowAll] = useState(false);
 
   const toggleAccordion = (id: string) => {
     setOpenAccordion(openAccordion === id ? null : id);
   };
-
-  const displayedCategories = showAll ? concernsData : concernsData.slice(0, 3);
 
   return (
     <section ref={ref} className={styles.concernsSection}>
@@ -124,11 +121,14 @@ const ConcernsSection = () => {
         </h2>
 
         <div className={styles.concernsAccordion}>
-          {displayedCategories.map((category, index) => (
+          {concernsData.map((category, index) => (
             <div
               key={category.id}
               className={`${styles.accordionItem} ${isVisible ? styles.visible : ''}`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+                '--category-color': category.color
+              } as React.CSSProperties & { '--category-color': string }}
             >
               <button
                 className={styles.accordionHeader}
@@ -153,18 +153,10 @@ const ConcernsSection = () => {
             </div>
           ))}
         </div>
-        
-        {!showAll && (
-          <div className={styles.showMoreContainer}>
-            <button onClick={() => setShowAll(true)} className={styles.showMoreButton}>
-              さらに表示（{concernsData.length - 3}カテゴリ） <i className="fas fa-chevron-down"></i>
-            </button>
-          </div>
-        )}
-        
-        <SectionCta 
-          text="この中に当てはまるお悩みはありましたか？"
-          buttonText="お気軽にお問い合わせください"
+
+        <SectionCta
+          text="このような小さなお困りごとをお持ちの方は、ぜひ一度ご相談ください。"
+          buttonText="無料で相談してみる"
         />
       </div>
     </section>

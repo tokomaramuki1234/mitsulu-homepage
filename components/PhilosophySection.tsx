@@ -8,27 +8,23 @@ const PhilosophySection = () => {
   return (
     <section ref={ref} className={styles.philosophySection}>
       <div className={styles.container}>
-        <div className={styles.philosophyContent}>
-          <div className={`${styles.philosophyLeft} ${isVisible ? styles.visible : ''}`}>
-            <h2 className={styles.sectionTitle}>三流が大切にしていること</h2>
-            <p className={styles.philosophyText}>
-              幅広い分野に対応できる柔軟性が強みです。分野を横断してつなぎ、足りないところを補います。現場の小さな課題をまとめて解決し、着実に前進をサポートします。
-            </p>
-          </div>
-          <div className={`${styles.philosophyRight} ${isVisible ? styles.visible : ''}`}>
-            <div className={styles.philosophyIcons}>
-              <i className="fas fa-arrow-right"></i>
-              <i className="fas fa-user-tie"></i>
-              <i className="fas fa-link"></i>
-              <i className="fas fa-puzzle-piece"></i>
-              <i className="fas fa-check-circle"></i>
-            </div>
-          </div>
+        <div className={`${styles.philosophyCentered} ${isVisible ? styles.visible : ''}`}>
+          <h2 className={styles.sectionTitle}>三流の理念</h2>
+          <p className={styles.philosophyTagline}>
+            小さな悩みの受け皿に
+          </p>
+          <p className={styles.philosophyDescription}>
+            "悩み"とは思考停止している状態を指します。<br />
+            「〇〇だから」、「△△ができないから」といった理由で行動を起こせずにいる時、<br />
+            人は悩みを抱えていると言えます。<br />
+            <br />
+            三流はそんな悩みの受け皿となり、あなたが再び前進できるようご支援致します。
+          </p>
         </div>
-        
-        <SectionCta 
-          text="三流の考え方に共感いただけましたか？"
-          buttonText="一緒に課題解決しましょう"
+
+        <SectionCta
+          text="大小あれど、悩みは歩みを止めている状態。そのお悩みを乗り越えた先に見える景色があります。"
+          buttonText="まずはお気軽にご相談ください"
         />
       </div>
     </section>

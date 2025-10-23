@@ -6,7 +6,7 @@ interface SectionCtaProps {
 }
 
 const SectionCta: React.FC<SectionCtaProps> = ({ 
-  text = '気になるサービスがありましたか？',
+  text = '身近なお悩みの解決を支援致します。',
   buttonText = 'まずは気軽にご相談ください'
 }) => {
   return (

@@ -18,14 +18,13 @@ const PricingSection = () => {
           <div className={`${styles.pricingCard} ${isVisible ? styles.visible : ''}`} style={{ animationDelay: '0s' }}>
             <div className={styles.pricingHeader}>
               <h3 className={styles.pricingTitle}>時間単価</h3>
-              <div className={styles.pricingPrice}>¥5,500<span>/時間</span></div>
+              <div className={styles.pricingPrice}>¥5,500<span>～/時間</span></div>
             </div>
             <ul className={styles.pricingFeatures}>
               <li>単発のご相談・作業</li>
               <li>スポット対応</li>
               <li>短期プロジェクト</li>
             </ul>
-            <p className={styles.pricingNote}>※税込価格です</p>
           </div>
 
           <div className={`${styles.pricingCard} ${styles.pricingCardFeatured} ${isVisible ? styles.visible : ''}`} style={{ animationDelay: '0.1s' }}>
@@ -39,7 +38,7 @@ const PricingSection = () => {
               <li>電話等の相談無料</li>
               <li>優先対応</li>
             </ul>
-            <p className={styles.pricingNote}>※税込価格です<br />※月間稼働時間が8時間を超える場合は別途お見積り</p>
+            <p className={styles.pricingNote}>※月間稼働時間が8時間を超える場合は別途お見積り</p>
           </div>
 
           <div className={`${styles.pricingCard} ${isVisible ? styles.visible : ''}`} style={{ animationDelay: '0.2s' }}>
@@ -57,8 +56,9 @@ const PricingSection = () => {
         </div>
 
         <p className={`${styles.pricingFooter} ${isVisible ? styles.visible : ''}`}>
-          ※料金はプロジェクト内容により変動します。詳しくはお問い合わせください。
+          ※価格はすべて税込み表記です。<br />※料金はプロジェクト内容により変動します。詳しくはお問い合わせください。
         </p>
+
       </div>
     </section>
   );

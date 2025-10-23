@@ -6,21 +6,17 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.footerContent}>
           <div className={styles.footerCenter}>
-            <p className={styles.footerTagline}>三流 ― 幅広く、柔軟に、あなたをサポート。</p>
+            <p className={styles.footerTagline}>小さな組織の手が回らないお困りごとを横断的に解決するIT系の何でも屋さん</p>
           </div>
           <div className={styles.footerBottom}>
-            <div className={styles.footerLeft}>
-              <p>
-                <a href="https://mitsulu.style/">https://mitsulu.style/</a>
-              </p>
-            </div>
+
             <div className={styles.footerRight}>
-              <p>様々な悩みの受け皿に。</p>
-              <p>All worries welcome here.</p>
+              <p>小さな悩みの受け皿に。</p>
+              <p>One plase, many solutions.</p>
             </div>
           </div>
           <div className={styles.footerCopyright}>
-            <p>&copy; 2025 三流. All rights reserved.</p>
+            <p>&copy; 2025 Mitsulu. All rights reserved.</p>
           </div>
         </div>
       </div>

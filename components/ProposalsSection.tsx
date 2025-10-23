@@ -6,73 +6,103 @@ import Image from 'next/image';
 const proposals = [
   {
     id: 1,
-    title: '例①｜小さな会社のWebと紙の顔づくり',
+    number: 'Case - 1',
+    icon: 'fas fa-paint-brush',
+    title: '小さな会社のWebと紙の顔づくり',
     description: 'Webサイトと名刺、チラシを一貫してデザイン・制作。オンラインとオフラインの印象を統一し、伝わりやすさを高めます。',
     image: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&h=400&fit=crop',
-    alt: 'Webと紙の顔づくり'
+    alt: 'Webと紙の顔づくり',
+    color: '#EAE33C' // デザイン・制作
   },
   {
     id: 2,
-    title: '例②｜地域イベントの「なんでも屋」',
+    number: 'Case - 2',
+    icon: 'fas fa-microphone',
+    title: '地域イベントの「なんでも屋」',
     description: '会場設営からチラシ制作、広報SNS、当日の司会進行まで。人手不足の現場を、臨機応変にサポートします。',
     image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
-    alt: '地域イベントの企画運営'
+    alt: '地域イベントの企画運営',
+    color: '#248EC6' // ファシリテーション
   },
   {
     id: 3,
-    title: '例③｜社員研修＋実践ワークショップ',
+    number: 'Case - 3',
+    icon: 'fas fa-users',
+    title: '社員研修＋実践ワークショップ',
     description: 'AIツールやMicrosoft Officeの操作研修を、実際の課題解決ワークと組み合わせ。現場ですぐ使える知識を身につけられる場をつくります。',
     image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
-    alt: '社員研修とワークショップ'
+    alt: '社員研修とワークショップ',
+    color: '#CD2272' // 企画・研修
   },
   {
     id: 4,
-    title: '例④｜外国人スタッフの日本語＋業務トレーニング',
+    number: 'Case - 4',
+    icon: 'fas fa-graduation-cap',
+    title: '外国人スタッフの日本語＋業務トレーニング',
     description: '接客や現場マナーなど、実務に合わせた日本語指導を提供。多国籍チームの円滑な連携を支えます。',
     image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=400&fit=crop',
-    alt: '外国人スタッフの日本語教育'
+    alt: '外国人スタッフの日本語教育',
+    color: '#1B2B59' // 教育・講習
   },
   {
     id: 5,
-    title: '例⑤｜地域観光のプロモーション企画',
+    number: 'Case - 5',
+    icon: 'fas fa-mountain',
+    title: '地域観光のプロモーション企画',
     description: '登山・観光案内・キャンプ体験などの体験型ツアーを企画し、Web・SNS発信までワンストップでサポートします。',
     image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
-    alt: '地域観光のプロモーション'
+    alt: '地域観光のプロモーション',
+    color: '#208B3B' // 体験サポート
   },
   {
     id: 6,
-    title: '例⑥｜中小企業のWeb運用まるごと代行',
+    number: 'Case - 6',
+    icon: 'fas fa-laptop-code',
+    title: '中小企業のWeb運用まるごと代行',
     description: 'ホームページ更新、SNS運用、簡単な写真撮影や文章修正も。手が回らない部分を補います。',
     image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
-    alt: 'Web運用代行'
+    alt: 'Web運用代行',
+    color: '#0A0F0F' // Web構築・開発・運用
   },
   {
     id: 7,
-    title: '例⑦｜教育現場のICTサポート',
+    number: 'Case - 7',
+    icon: 'fas fa-graduation-cap',
+    title: '教育現場のICTサポート',
     description: '授業でのタブレット活用やAIツール導入、Office教育などを支援。先生と生徒の"わからない"の間をつなぎます。',
     image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop',
-    alt: 'ICTサポート'
+    alt: 'ICTサポート',
+    color: '#1B2B59' // 教育・講習
   },
   {
     id: 8,
-    title: '例⑧｜地域の空きスペース活用支援',
+    number: 'Case - 8',
+    icon: 'fas fa-mountain',
+    title: '地域の空きスペース活用支援',
     description: 'イベントやワークショップ、展示会の企画・広報・運営を一体的に支援。地域の人が集まる場づくりをお手伝いします。',
     image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
-    alt: '空きスペース活用'
+    alt: '空きスペース活用',
+    color: '#208B3B' // 体験サポート
   },
   {
     id: 9,
-    title: '例⑨｜動画で伝える企業ストーリー',
+    number: 'Case - 9',
+    icon: 'fas fa-paint-brush',
+    title: '動画で伝える企業ストーリー',
     description: '会社紹介や採用向け動画を、企画から編集まで柔軟に対応。効果的な映像制作を提案します。',
     image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&h=400&fit=crop',
-    alt: '動画制作'
+    alt: '動画制作',
+    color: '#EAE33C' // デザイン・制作
   },
   {
     id: 10,
-    title: '例⑩｜キャンプ＆BBQ×学びのイベント企画',
+    number: 'Case - 10',
+    icon: 'fas fa-mountain',
+    title: 'キャンプ＆BBQ×学びのイベント企画',
     description: '自然の中での交流会やチームビルディングを企画。遊びながら学べる、体験重視のプログラムをつくります。',
     image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&h=400&fit=crop',
-    alt: 'キャンプイベント'
+    alt: 'キャンプイベント',
+    color: '#208B3B' // 体験サポート
   }
 ];
 
@@ -109,7 +139,16 @@ const ProposalsSection = () => {
                 />
               </div>
               <div className={styles.proposalContent}>
-                <h3 className={styles.proposalTitle}>{proposal.title}</h3>
+                <h3 className={styles.proposalTitle}>
+                  <span
+                    className={styles.proposalNumber}
+                    style={{ '--proposal-color': proposal.color } as React.CSSProperties & { '--proposal-color': string }}
+                  >
+                    <i className={proposal.icon}></i>
+                    {proposal.number}
+                  </span>
+                  <span className={styles.proposalTitleText}>{proposal.title}</span>
+                </h3>
                 <p className={styles.proposalDescription}>{proposal.description}</p>
               </div>
             </article>
@@ -117,8 +156,8 @@ const ProposalsSection = () => {
         </div>
         
         <SectionCta 
-          text="三流の解決アイデアに興味を持たれましたか？"
-          buttonText="あなたのお悩みもご相談ください"
+          text="その他、「こんなことはできる？」などのご相談も大歓迎！"
+          buttonText="まずはお気軽にご相談ください"
         />
       </div>
     </section>
