@@ -1,0 +1,10 @@
+# Simple CORS fix for Xserver
+RewriteEngine On
+
+# OPTIONSリクエストに即座に200を返す（リダイレクトしない）
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule .* - [R=200,L]
+
+# HTTPSへのリダイレクトを無効化（このディレクトリのみ）
+RewriteCond %{HTTPS} off
+RewriteRule .* - [L]

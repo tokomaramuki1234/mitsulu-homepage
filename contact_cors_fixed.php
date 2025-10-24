@@ -1,17 +1,19 @@
 <?php
 /**
- * 三流（Mitsulu）お問い合わせフォーム API
+ * 三流（Mitsulu）お問い合わせフォーム API - CORS完全対応版
  *
  * 配置場所: Xserver /mitsulu.style/public_html/form/contact.php
  * URL: https://form.mitsulu.style/contact.php
  * 送信先: mk@mitsulu.style
  *
- * 機能:
- * - フロントエンド（React）からのPOSTリクエストを受信
- * - バリデーション処理
- * - 管理者へメール送信
- * - 送信者へ自動返信メール送信
+ * 変更点:
+ * - 全ての処理よりも先にCORSヘッダーを送信（ob_start使用）
+ * - HTTPSリダイレクトを完全に無効化
+ * - デバッグログ追加
  */
+
+// 出力バッファリング開始（ヘッダー送信を確実にするため）
+ob_start();
 
 // タイムゾーン設定
 date_default_timezone_set('Asia/Tokyo');
@@ -21,31 +23,47 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
-// CORS設定（Vercelからのアクセスを許可）
-// 複数のオリジンに対応
+// ===== CORS設定（最優先処理） =====
 $allowed_origins = array(
     'https://mitsulu.style',
     'https://www.mitsulu.style',
-    'http://localhost:3000'  // ローカル開発用
+    'http://localhost:3000'
 );
 
 $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
 
-// OPTIONSリクエストは最優先で処理（リダイレクト回避）
-$request_method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
+// デバッグログ
+error_log("[Contact Form] Method: {$request_method}, Origin: {$origin}, Time: " . date('Y-m-d H:i:s'));
 
+// OPTIONSリクエストの処理（最優先）
 if ($request_method === 'OPTIONS') {
-    // OPTIONSリクエストに対するCORSヘッダーを即座に送信
+    error_log("[Contact Form] Processing OPTIONS request from {$origin}");
+
+    // 出力バッファをクリア
+    ob_clean();
+
+    // CORSヘッダーを送信
     if (in_array($origin, $allowed_origins)) {
         header('Access-Control-Allow-Origin: ' . $origin);
+        error_log("[Contact Form] Allowed origin: {$origin}");
     } else {
         header('Access-Control-Allow-Origin: https://mitsulu.style');
+        error_log("[Contact Form] Using default origin for: {$origin}");
     }
+
     header('Access-Control-Allow-Methods: POST, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type');
-    header('Access-Control-Max-Age: 86400'); // 24時間キャッシュ
+    header('Access-Control-Allow-Credentials: true');
+    header('Access-Control-Max-Age: 86400');
+    header('Content-Type: text/plain');
+    header('Content-Length: 0');
+
     http_response_code(200);
-    exit; // ここで処理を終了（リダイレクトさせない）
+    error_log("[Contact Form] OPTIONS response sent successfully");
+
+    ob_end_flush();
+    exit(0);
 }
 
 // 通常のリクエスト用CORSヘッダー
@@ -53,7 +71,6 @@ if (in_array($origin, $allowed_origins)) {
     header('Access-Control-Allow-Origin: ' . $origin);
     header('Access-Control-Allow-Credentials: true');
 } else {
-    // デフォルトでmitsulu.styleを許可
     header('Access-Control-Allow-Origin: https://mitsulu.style');
 }
 
@@ -61,18 +78,24 @@ header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Content-Type: application/json; charset=utf-8');
 
-// POSTリクエストのみ許可（OPTIONSは既に処理済み）
+error_log("[Contact Form] CORS headers set for {$request_method} request");
+
+// POSTリクエストのみ許可
 if ($request_method !== 'POST') {
+    error_log("[Contact Form] Invalid method: {$request_method}");
     http_response_code(405);
     echo json_encode(array('success' => false, 'message' => 'POSTリクエストのみ受け付けます。'));
+    ob_end_flush();
     exit;
 }
 
 // JSONデータを取得
 $json_input = @file_get_contents('php://input');
-if ($json_input === false) {
+if ($json_input === false || empty($json_input)) {
+    error_log("[Contact Form] No input data");
     http_response_code(400);
     echo json_encode(array('success' => false, 'message' => 'No input data'));
+    ob_end_flush();
     exit;
 }
 
@@ -80,8 +103,10 @@ $data = json_decode($json_input, true);
 
 // JSONデコードエラーチェック
 if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
+    error_log("[Contact Form] Invalid JSON: " . json_last_error_msg());
     http_response_code(400);
     echo json_encode(array('success' => false, 'message' => 'Invalid JSON'));
+    ob_end_flush();
     exit;
 }
 
@@ -89,8 +114,10 @@ if (json_last_error() !== JSON_ERROR_NONE || !is_array($data)) {
 $required_fields = array('name', 'email', 'message', 'category');
 foreach ($required_fields as $field) {
     if (!isset($data[$field]) || trim($data[$field]) === '') {
+        error_log("[Contact Form] Missing required field: {$field}");
         http_response_code(400);
         echo json_encode(array('success' => false, 'message' => '必須項目が入力されていません'));
+        ob_end_flush();
         exit;
     }
 }
@@ -98,8 +125,10 @@ foreach ($required_fields as $field) {
 // メールアドレスの検証
 $email_check = filter_var($data['email'], FILTER_VALIDATE_EMAIL);
 if (!$email_check) {
+    error_log("[Contact Form] Invalid email: " . $data['email']);
     http_response_code(400);
     echo json_encode(array('success' => false, 'message' => '有効なメールアドレスを入力してください'));
+    ob_end_flush();
     exit;
 }
 
@@ -110,6 +139,8 @@ $phone = isset($data['phone']) ? mb_substr(strip_tags(trim($data['phone'])), 0, 
 $company = isset($data['company']) ? mb_substr(strip_tags(trim($data['company'])), 0, 100) : '';
 $category = strip_tags(trim($data['category']));
 $message = mb_substr(strip_tags(trim($data['message'])), 0, 5000);
+
+error_log("[Contact Form] Processing inquiry from: {$name} <{$email}>");
 
 // 送信先メールアドレス
 $to_email = 'mk@mitsulu.style';
@@ -168,12 +199,10 @@ $admin_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 // メール送信（管理者向け）
 $mail_admin_result = mb_send_mail($to_email, $subject, $admin_message, $admin_headers);
 
-// ログメッセージ
-$log_msg = "[" . date('Y-m-d H:i:s') . "] ";
-
-if (!$mail_admin_result) {
-    $log_msg .= "管理者メール送信失敗 to: {$to_email}, from: {$email}\n";
-    error_log($log_msg);
+if ($mail_admin_result) {
+    error_log("[Contact Form] Admin email sent successfully to {$to_email}");
+} else {
+    error_log("[Contact Form] Failed to send admin email to {$to_email}");
 }
 
 // 自動返信メール（お客様向け）
@@ -224,9 +253,10 @@ $reply_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 // 自動返信送信
 $mail_user_result = mb_send_mail($email, $reply_subject, $reply_message, $reply_headers);
 
-if (!$mail_user_result) {
-    $log_msg .= "自動返信メール送信失敗 to: {$email}\n";
-    error_log($log_msg);
+if ($mail_user_result) {
+    error_log("[Contact Form] Auto-reply email sent successfully to {$email}");
+} else {
+    error_log("[Contact Form] Failed to send auto-reply email to {$email}");
 }
 
 // レスポンス返却
@@ -238,8 +268,7 @@ if ($mail_admin_result && $mail_user_result) {
         'message' => 'お問い合わせを受け付けました。確認メールをお送りしましたのでご確認ください。'
     ));
 
-    $log_msg .= "メール送信成功 from: {$email}, name: {$name}\n";
-    error_log($log_msg);
+    error_log("[Contact Form] Success - Both emails sent to admin and user");
 
 } elseif ($mail_admin_result && !$mail_user_result) {
     // 管理者には届いたが、自動返信が失敗
@@ -249,6 +278,8 @@ if ($mail_admin_result && $mail_user_result) {
         'message' => 'お問い合わせを受け付けました。（確認メールの送信に失敗した可能性があります）'
     ));
 
+    error_log("[Contact Form] Partial success - Admin email sent but auto-reply failed");
+
 } else {
     // メール送信に失敗
     http_response_code(500);
@@ -256,5 +287,9 @@ if ($mail_admin_result && $mail_user_result) {
         'success' => false,
         'message' => 'メール送信に失敗しました。時間をおいて再度お試しいただくか、mk@mitsulu.styleへ直接ご連絡ください。'
     ));
+
+    error_log("[Contact Form] Failed - Email sending error");
 }
+
+ob_end_flush();
 ?>

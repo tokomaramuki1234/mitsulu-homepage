@@ -1,0 +1,41 @@
+# Mitsulu Contact Form API - .htaccess
+# 配置場所: /mitsulu.style/public_html/form/.htaccess
+
+# CORS プリフライトリクエスト（OPTIONS）への対応
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # OPTIONSリクエストを直接PHPファイルに渡す（リダイレクトしない）
+    RewriteCond %{REQUEST_METHOD} OPTIONS
+    RewriteRule ^(.*)$  [R=200,L]
+</IfModule>
+
+# セキュリティヘッダー
+<IfModule mod_headers.c>
+    # OPTIONSリクエストに対するレスポンスヘッダー
+    Header always set Access-Control-Allow-Methods "POST, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type"
+    Header always set Access-Control-Max-Age "86400"
+</IfModule>
+
+# PHPエラー表示を無効化（本番環境）
+php_flag display_errors Off
+php_flag log_errors On
+
+# 文字コード設定
+AddDefaultCharset UTF-8
+
+# ディレクトリリスティングを無効化
+Options -Indexes
+
+# .htaccess自体へのアクセスを拒否
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
+
+# PHPファイル以外へのアクセスを拒否
+<FilesMatch "^(contact\.php)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>

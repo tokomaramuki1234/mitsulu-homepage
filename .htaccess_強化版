@@ -1,0 +1,21 @@
+# CORS対応 .htaccess for Xserver (強化版)
+# 配置場所: /mitsulu.style/public_html/form/.htaccess
+
+# mod_rewriteを有効化
+RewriteEngine On
+
+# OPTIONSリクエストは即座に200で返す（最優先）
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^ - [R=200,L]
+
+# 上位ディレクトリのリダイレクトルールを無効化
+RewriteOptions inherit
+
+# 環境変数でOPTIONSリクエストを識別
+SetEnvIf Request_Method OPTIONS options_request
+
+# OPTIONS以外の全リクエストをcontact.phpに転送
+# （ただしcontact.phpへの直接アクセスは除く）
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_METHOD} !OPTIONS
+RewriteRule ^(.*)$ contact.php [QSA,L]
