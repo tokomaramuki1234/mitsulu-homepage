@@ -22,16 +22,9 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
 // 文字エンコーディング設定（重要！）
-mb_language('Japanese');
+// 'uni' を使用することで UTF-8 + Base64 エンコーディングが適用される
+mb_language('uni');
 mb_internal_encoding('UTF-8');
-
-// メール送信用のエンコーディング設定（Base64で日本語対応）
-ini_set('mbstring.language', 'Japanese');
-ini_set('mbstring.internal_encoding', 'UTF-8');
-ini_set('mbstring.http_input', 'UTF-8');
-ini_set('mbstring.http_output', 'UTF-8');
-ini_set('mbstring.detect_order', 'UTF-8');
-ini_set('mbstring.substitute_character', 'none');
 
 // CORS設定（Vercelからのアクセスを許可）
 // 複数のオリジンに対応
