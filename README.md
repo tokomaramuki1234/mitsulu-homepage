@@ -26,7 +26,7 @@
 | ホスト名 | 種別 | 値 | 用途 |
 |----------|------|----|------|
 | @ | A | 216.198.79.1 | Vercel (メインサイト) |
-| www | CNAME | cname.vercel-dns.com | Vercel (www) |
+| www | CNAME | db6751fc8be97914.vercel-dns-017.com | Vercel (www) |
 | form | A | Xserver IP | Xserver (お問い合わせAPI) |
 
 ### Xserver 設定
@@ -77,7 +77,7 @@
    - [x] Xserver でドメイン取得（`mitsulu.style`）
    - [x] Vercel にカスタムドメイン追加
    - [x] DNS レコード設定（A レコード: `216.198.79.1`）
-   - [x] DNS レコード設定（CNAME レコード: `www` → `cname.vercel-dns.com`）
+   - [x] DNS レコード設定（CNAME レコード: `www` → `db6751fc8be97914.vercel-dns-017.com`）
    - [x] Xserver サーバーパネルで DNS 設定変更完了
 
 ### ✅ 完了済み（追加）
@@ -106,7 +106,8 @@
    - [ ] ブログ/お知らせ機能
 
 8. **機能拡張**
-   - [ ] お問い合わせフォーム機能強化
+   - [x] お問い合わせフォーム基本実装（PHP + React）
+   - [ ] お問い合わせフォーム機能強化（reCAPTCHA追加等）
    - [ ] チャットボット導入検討
    - [ ] 事例紹介ギャラリー
    - [ ] お客様の声・レビュー機能
@@ -230,7 +231,7 @@ nslookup form.mitsulu.style
 | ホスト名 | 種別 | 値 | 接続先 | 用途 |
 |----------|------|-----|--------|------|
 | `@` (mitsulu.style) | A | `216.198.79.1` | **Vercel** | Next.js メインサイト |
-| `www` | CNAME | `cname.vercel-dns.com` | **Vercel** | www サブドメイン |
+| `www` | CNAME | `db6751fc8be97914.vercel-dns-017.com` | **Vercel** | www サブドメイン |
 | `form` | A | Xserver IP | **Xserver** | PHP フォームAPI |
 
 **ポイント**:
@@ -328,7 +329,7 @@ nslookup form.mitsulu.style
 | ホスト名 | 種別 | 値 | TTL | 用途 |
 |----------|------|----|-----|------|
 | @ (mitsulu.style) | A | 216.198.79.1 | 3600 | メインドメイン → Vercel |
-| www | CNAME | cname.vercel-dns.com | 3600 | www サブドメイン → Vercel |
+| www | CNAME | db6751fc8be97914.vercel-dns-017.com | 3600 | www サブドメイン → Vercel |
 
 ### Vercel 側設定
 
@@ -405,7 +406,9 @@ mitsulu-homepage/
 ├── js/                     # 静的LPサイト用JavaScript（アーカイブ）
 │   └── main.js            # インタラクション・アニメーション
 ├── index.html             # 静的LPサイト（三流、アーカイブ）
+├── contact.php            # お問い合わせフォームAPI（Xserver用）✨NEW
 ├── fixlist.md             # LP改善提案書 ✨NEW
+├── CONTACT_FORM_SETUP.md  # お問い合わせフォーム完全セットアップガイド ✨NEW
 ├── .gitignore             # Git 除外設定
 ├── package.json           # 依存関係定義
 ├── package-lock.json      # 依存関係ロックファイル
@@ -731,6 +734,41 @@ npm run build -- --no-cache
   - コミットハッシュ: `5eb0941`
   - ブランチ: `main`
 
+### 2025-10-24（お問い合わせフォーム完全実装）
+- ✅ **お問い合わせフォーム完全実装**
+  - **React フロントエンド更新** (`components/ContactSection.tsx`)
+    - エラーハンドリング強化（通信エラー時の詳細メッセージ）
+    - 送信成功時のスクロール位置自動調整
+    - 成功メッセージの詳細化（確認メール案内、注意事項追加）
+    - 「新しいお問い合わせ」ボタン追加
+  - **PHP バックエンド完全実装** (`contact.php`)
+    - Xserver へアップロード完了 (`/mitsulu.style/public_html/form/contact.php`)
+    - 日本時間タイムゾーン設定
+    - 管理者通知メール送信 (`mk@mitsulu.style`)
+    - 自動返信メール送信 (`noreply@mitsulu.style`)
+    - 詳細なエラーログ機能実装
+    - バリデーション強化（サーバーサイド）
+  - **CSS スタイル追加** (`styles/Home.module.css`)
+    - `.noteText` - 注意事項テキストスタイル
+    - `.newInquiryButton` - 新規お問い合わせボタン
+    - ホバーエフェクト、アニメーション追加
+  - **完全セットアップガイド作成** (`CONTACT_FORM_SETUP.md`)
+    - システム構成図
+    - セットアップ手順（Xserver、DNS、GitHub、Vercel）
+    - **SPF レコード設定詳細手順**
+    - 動作テスト手順（4種類のテストケース）
+    - トラブルシューティング完全版
+    - よくある質問（FAQ）
+    - 完了チェックリスト
+- ✅ **DNS レコード情報修正**
+  - www CNAME レコード値を正確な値に更新
+    - 誤: `cname.vercel-dns.com`
+    - 正: `db6751fc8be97914.vercel-dns-017.com`
+  - `README.md` と `CONTACT_FORM_SETUP.md` の4箇所を修正
+- ✅ **SPF レコード確認**
+  - Xserver で既に適切に設定済みを確認
+  - 迷惑メール判定対策完了
+
 ### 📱 PC作業待ち（iPhone操作中のため）
 - [ ] **Gensparkで作成したReactファイルをローカルにダウンロード**
 - [ ] **ローカルリポジトリに配置**
@@ -739,18 +777,20 @@ npm run build -- --no-cache
 - [ ] **https://mitsulu.style で動作確認**
 
 ### 今後の拡張予定
+- [x] お問い合わせフォーム基本実装（PHP + React）
+- [x] SPF レコード設定（迷惑メール対策）
 - [ ] サービス詳細ページ追加
 - [ ] 実績紹介ページ追加
 - [ ] ブログ機能実装
-- [ ] お問い合わせフォーム機能強化
+- [ ] お問い合わせフォーム機能強化（reCAPTCHA、入力内容保存等）
 - [ ] 料金プラン・見積もり機能
 - [ ] **fixlist.md に記載された改善項目の段階的実装**（優先度順）
 
 ---
 
-**Last Updated**: 2025-10-22  
-**Version**: 0.5.0 (Design Overhaul + Professional LP Analysis Completed)  
-**Status**: ✅ デザインリニューアル完了 + LP分析・改善提案書作成完了 → 📱 PC作業待ち（ローカル統合→GitHub Push）
+**Last Updated**: 2025-10-24
+**Version**: 0.6.0 (Contact Form Implementation Completed)
+**Status**: ✅ お問い合わせフォーム完全実装完了（PHP + React） → 🚀 デプロイ準備完了（GitHub Push待ち）
 
 ---
 

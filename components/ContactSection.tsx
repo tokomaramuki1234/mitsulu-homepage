@@ -43,11 +43,17 @@ const ContactSection = () => {
       if (response.ok && result.success) {
         setSubmitted(true);
         setFormData({ name: '', email: '', phone: '', company: '', category: '', message: '' });
+        // スクロールをフォーム上部に移動
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       } else {
         setError(result.message || '送信に失敗しました。もう一度お試しください。');
       }
     } catch (err) {
-      setError('送信に失敗しました。もう一度お試しください。');
+      console.error('Contact form error:', err);
+      setError('通信エラーが発生しました。ネットワーク接続を確認して、もう一度お試しください。');
     } finally {
       setSubmitting(false);
     }
@@ -68,7 +74,18 @@ const ContactSection = () => {
             <div className={styles.thankYouMessage}>
               <i className="fas fa-check-circle"></i>
               <h3>お問い合わせありがとうございます</h3>
-              <p>内容を確認次第、ご連絡させていただきます。</p>
+              <p>ご入力いただいたメールアドレスに確認メールを送信いたしました。</p>
+              <p>24時間以内に担当者よりご連絡いたしますので、今しばらくお待ちください。</p>
+              <p className={styles.noteText}>
+                ※確認メールが届かない場合は、迷惑メールフォルダをご確認ください。<br />
+                ※メールアドレスに誤りがあった可能性がございます。その際は再度お問い合わせください。
+              </p>
+              <button
+                onClick={() => setSubmitted(false)}
+                className={styles.newInquiryButton}
+              >
+                <i className="fas fa-redo"></i> 新しいお問い合わせ
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className={`${styles.contactForm} ${isVisible ? styles.visible : ''}`}>

@@ -18,6 +18,66 @@ import PricingSection from '../components/PricingSection';
 const Home: NextPage = () => {
   useEffect(() => {
     console.log('三流 LP Initialized Successfully! 🌿');
+
+    // URLハッシュがある場合、ページ読み込み完了後に正しい位置にスクロール
+    const hash = window.location.hash;
+    console.log('Current URL hash:', hash);
+
+    if (hash) {
+      const scrollToHash = () => {
+        const element = document.querySelector(hash);
+        console.log(`Attempting scroll to ${hash}, element found:`, !!element);
+
+        if (element) {
+          // 要素の位置情報をログ出力
+          const rect = element.getBoundingClientRect();
+          console.log(`Element position - top: ${rect.top}, bottom: ${rect.bottom}`);
+
+          // スムーズスクロールではなく、即座にスクロール（より確実）
+          element.scrollIntoView({ behavior: 'auto', block: 'start' });
+
+          // スクロール後の位置を確認
+          setTimeout(() => {
+            const newRect = element.getBoundingClientRect();
+            console.log(`After scroll - top: ${newRect.top}, window.scrollY: ${window.scrollY}`);
+          }, 50);
+        }
+      };
+
+      // 複数のタイミングでスクロールを試みる（確実性を高めるため）
+      console.log('Setting up scroll timers...');
+
+      // 1. 即座に実行（最初の試み）
+      setTimeout(() => {
+        console.log('Scroll attempt 1 (0ms)');
+        scrollToHash();
+      }, 0);
+
+      // 2. 少し遅延させて実行（画像やコンテンツの読み込みを待つ）
+      setTimeout(() => {
+        console.log('Scroll attempt 2 (100ms)');
+        scrollToHash();
+      }, 100);
+
+      // 3. さらに遅延（フォント読み込みを待つ）
+      setTimeout(() => {
+        console.log('Scroll attempt 3 (500ms)');
+        scrollToHash();
+      }, 500);
+
+      // 4. 完全読み込み後に実行（最終確認）
+      if (document.readyState === 'complete') {
+        setTimeout(() => {
+          console.log('Scroll attempt 4 (already complete)');
+          scrollToHash();
+        }, 100);
+      } else {
+        window.addEventListener('load', () => {
+          console.log('Scroll attempt 4 (on load)');
+          setTimeout(scrollToHash, 100);
+        });
+      }
+    }
   }, []);
 
   return (

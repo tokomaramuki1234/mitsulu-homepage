@@ -18,6 +18,8 @@ const HeroSection = () => {
           src="/images/topimg.svg"
           alt="Mitsulu Logo"
           className={styles.heroMainLogo}
+          width="500"
+          height="500"
         />
       </div>
       <div className={styles.container}>
