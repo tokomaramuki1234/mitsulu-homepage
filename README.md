@@ -46,12 +46,21 @@ Xserver PHP（contact.php）
 | @ | A | 216.198.79.1 | Vercel (メインサイト) |
 | www | CNAME | db6751fc8be97914.vercel-dns-017.com | Vercel (www) |
 | form | A | Xserver IP | Xserver (お問い合わせAPI) |
+| @ | TXT | `v=spf1 +a:sv***.xserver.jp +mx ~all` | SPFレコード（設定済み） |
 
 ### Xserver 設定
 
 1. サブドメイン `form` を作成
 2. `/mitsulu.style/public_html/form/` に `contact.php` をアップロード
 3. パーミッション：644
+
+### メール設定（完了済み）
+
+- ✅ **noreply@mitsulu.style**: 作成済み
+- ✅ **SPFレコード**: Xserver DNS設定済み
+- ✅ **文字エンコーディング**: contact.php に `mb_language('Japanese')` 設定済み
+- ✅ **送信先**: mk@mitsulu.style
+- ✅ **自動返信**: あり
 
 ---
 
