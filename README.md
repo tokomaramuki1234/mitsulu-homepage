@@ -10,16 +10,34 @@
 
 ## 📧 お問い合わせフォーム設定
 
-### サブドメイン方式（PHP on Xserver）
+### 現在のアーキテクチャ（Vercel API Route → Xserver PHP）
 
-お問い合わせフォームは Xserver のサブドメインで動作する PHP を使用します。
+お問い合わせフォームは、Vercel API RouteがXserver PHPにプロキシする構成を採用しています。
 
-- **エンドポイント**: `https://form.mitsulu.style/contact.php`
-- **サブドメイン**: `form.mitsulu.style` → Xserver
-- **メインドメイン**: `mitsulu.style` → Vercel
-- **メール送信**: PHP `mb_send_mail()`
-- **送信先**: mk@mitsulu.style
-- **自動返信**: あり
+```
+ユーザー（ブラウザ）
+  ↓ POST /api/contact
+  ↓ ★同一オリジン（CORS不要）★
+Vercel Next.js API Route（サーバーサイド）
+  ↓ POST https://form.mitsulu.style/contact.php
+  ↓ ★サーバー間通信（CORSチェックなし）★
+Xserver PHP（contact.php）
+  ↓ mb_send_mail()
+メール送信（mk@mitsulu.style + 自動返信）
+```
+
+**重要なポイント:**
+- フロントエンド → Vercel API Route: 同一オリジン（`/api/contact`）なのでCORS不要
+- Vercel API Route → Xserver PHP: サーバー間通信なのでCORSチェックなし
+- **外部サービス不使用**（Vercel + Xserver のみで完結）
+
+**ファイル構成:**
+- `pages/api/contact.ts`: Vercel Serverless Function（プロキシ）
+- `/mitsulu.style/public_html/form/contact.php`: Xserver PHP（メール送信）
+
+**エンドポイント:**
+- フロントエンド呼び出し: `https://www.mitsulu.style/api/contact`
+- バックエンド実体: `https://form.mitsulu.style/contact.php`
 
 ### DNS 設定
 
@@ -34,6 +52,222 @@
 1. サブドメイン `form` を作成
 2. `/mitsulu.style/public_html/form/` に `contact.php` をアップロード
 3. パーミッション：644
+
+---
+
+## 🔧 CORS問題のトラブルシューティング
+
+### 発生した問題と解決策
+
+お問い合わせフォーム実装時に発生したCORS（Cross-Origin Resource Sharing）問題とその解決プロセスを記録します。
+
+#### **問題1: 異なるオリジン間のCORSエラー（初期実装）**
+
+**発生した問題:**
+```
+Access to fetch at 'https://form.mitsulu.style/contact.php' from origin 'https://www.mitsulu.style'
+has been blocked by CORS policy
+```
+
+**原因:**
+- フロントエンド: `https://www.mitsulu.style`（Vercel）
+- バックエンドAPI: `https://form.mitsulu.style/contact.php`（Xserver）
+- **異なるサブドメイン間の通信**は、ブラウザのセキュリティポリシーによりCORSチェックが発生
+
+**失敗した解決試行:**
+1. ❌ PHP側でCORSヘッダーを追加 → OPTIONSリクエストが処理されない
+2. ❌ `.htaccess`でOPTIONSリクエストを処理 → Xserverの設定で上書きされる
+3. ❌ `ob_start()`でヘッダー送信を制御 → それでも動作せず
+
+**根本原因:**
+- Xserverのサーバー設定（HTTPSリダイレクト等）がPHP実行前に動作
+- サブドメイン間通信という構造そのものがCORS問題を複雑化
+
+---
+
+#### **問題2: 外部サービス（Resend）への依存（中間解決案）**
+
+**試みた解決策:**
+- Vercel Serverless FunctionでResend APIを使用してメール送信
+- 同一オリジン通信でCORS問題を回避
+
+**問題点:**
+- ❌ **要件違反**: プロジェクト要件「Vercel + Xserver のみ、外部サービス不使用」に反する
+- ❌ 外部APIキーの管理が必要
+- ❌ 無料枠の制約
+
+**即座にロールバック実施**
+
+---
+
+#### **最終解決策: Vercel API Routeをプロキシとして使用**
+
+**参考記事:**
+https://qiita.com/JZ8xNeXY/items/59e95e7ec92acac9cda4
+
+**解決の鍵:**
+> ブラウザからのリクエストはCORSチェックが発生するが、
+> サーバー間通信（Vercel → Xserver）はCORSチェックが発生しない
+
+**実装内容:**
+
+```typescript
+// pages/api/contact.ts
+export default async function handler(req, res) {
+  // フロントエンドからのリクエストを受ける（同一オリジン）
+
+  // Xserver PHPにプロキシ（サーバー間通信、CORSなし）
+  const phpResponse = await fetch('https://form.mitsulu.style/contact.php', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(req.body)
+  });
+
+  // 結果をフロントエンドに返す
+  return res.status(phpResponse.status).json(await phpResponse.json());
+}
+```
+
+**メリット:**
+- ✅ **CORS問題完全解決**（同一オリジン + サーバー間通信）
+- ✅ **外部サービス不使用**（Vercel + Xserver のみ）
+- ✅ **既存のXserver PHP**をそのまま使用可能
+- ✅ **環境変数設定不要**
+- ✅ **完全無料**
+
+---
+
+#### **問題3: APIルートの配置場所エラー**
+
+**発生した問題:**
+```
+405 Method Not Allowed
+```
+
+**原因:**
+- ❌ `api/contact.ts`（ルートディレクトリ）に配置
+- ✅ `pages/api/contact.ts`（正しい配置場所）に配置すべき
+
+**解決:**
+```bash
+# 正しいディレクトリ構造
+mitsulu-homepage/
+├── pages/
+│   ├── api/
+│   │   └── contact.ts  ← ここに配置
+│   └── index.tsx
+```
+
+Next.js 16（Pages Router）では、APIルートは必ず`pages/api/`に配置する必要があります。
+
+---
+
+#### **問題4: 型定義パッケージの不足**
+
+**発生した問題:**
+```
+Cannot find module '@vercel/node' or its corresponding type declarations.
+```
+
+**解決:**
+```bash
+npm install --save-dev @vercel/node
+```
+
+Vercel API Routeの型定義（`VercelRequest`, `VercelResponse`）を使用するには、`@vercel/node`パッケージが必要です。
+
+---
+
+### デバッグ手順まとめ
+
+#### **1. CORSエラーが発生した場合**
+
+**ブラウザで確認:**
+```
+F12 → Console タブ
+エラーメッセージを確認:
+- "blocked by CORS policy" → CORS問題
+- "405 Method Not Allowed" → APIルート問題
+- "404 Not Found" → エンドポイントURL問題
+```
+
+**ネットワークタブで確認:**
+```
+F12 → Network タブ → フォーム送信
+リクエスト先を確認:
+- /api/contact → 正しい（同一オリジン）
+- form.mitsulu.style/contact.php → 古い実装（CORS発生）
+```
+
+#### **2. Vercelデプロイ状況の確認**
+
+```
+https://vercel.com/dashboard
+→ プロジェクト選択
+→ Deployments タブ
+→ 最新デプロイが "Ready" になっているか確認
+```
+
+**ビルドエラーが発生している場合:**
+- Build Logs を確認
+- エラーメッセージから問題を特定
+- 修正後、再プッシュで自動デプロイ
+
+#### **3. APIエンドポイントの動作確認**
+
+**ブラウザで直接アクセス:**
+```
+https://www.mitsulu.style/api/contact
+```
+
+**期待される結果:**
+```json
+{"success":false,"message":"POSTリクエストのみ受け付けます"}
+```
+
+**404エラーが出る場合:**
+- APIファイルが`pages/api/`に配置されていない
+- デプロイが完了していない
+- ブラウザキャッシュが古い
+
+#### **4. ブラウザキャッシュのクリア**
+
+デプロイ後も古いコードが動作する場合：
+
+**ハードリフレッシュ:**
+- Windows: `Ctrl + Shift + R` または `Ctrl + F5`
+- Mac: `Cmd + Shift + R`
+
+**キャッシュ完全削除:**
+- Chrome: `Ctrl + Shift + Delete` → キャッシュ削除
+
+**シークレットモードでテスト:**
+- Chrome: `Ctrl + Shift + N`
+
+---
+
+### 学んだ教訓
+
+1. **CORS問題は構造から解決する**
+   - クライアント側の設定だけでは解決困難
+   - サーバーサイドプロキシという構造的解決が有効
+
+2. **要件を常に意識する**
+   - 「外部サービス不使用」という要件を見落とさない
+   - 解決策が要件に沿っているか常に確認
+
+3. **Next.jsのディレクトリ構造を理解する**
+   - Pages Router: `pages/api/`
+   - App Router: `app/api/route.ts`
+   - バージョンによって異なるので注意
+
+4. **デプロイとキャッシュの関係**
+   - デプロイ完了後もブラウザキャッシュで古いコードが動作する
+   - ハードリフレッシュやシークレットモードでテスト
+
+5. **段階的な問題解決**
+   - CORSエラー → プロキシ実装 → 配置場所エラー → 型定義エラー
+   - 一つずつ確実に解決していく
 
 ---
 
