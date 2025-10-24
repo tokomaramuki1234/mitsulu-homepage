@@ -25,6 +25,14 @@ ini_set('log_errors', 1);
 mb_language('Japanese');
 mb_internal_encoding('UTF-8');
 
+// メール送信用のエンコーディング設定（Base64で日本語対応）
+ini_set('mbstring.language', 'Japanese');
+ini_set('mbstring.internal_encoding', 'UTF-8');
+ini_set('mbstring.http_input', 'UTF-8');
+ini_set('mbstring.http_output', 'UTF-8');
+ini_set('mbstring.detect_order', 'UTF-8');
+ini_set('mbstring.substitute_character', 'none');
+
 // CORS設定（Vercelからのアクセスを許可）
 // 複数のオリジンに対応
 $allowed_origins = array(
@@ -167,9 +175,9 @@ $admin_message .= "User-Agent: " . $user_agent . "\n";
 // メールヘッダー（管理者向け）
 $admin_headers = "From: 三流お問い合わせフォーム <noreply@mitsulu.style>\r\n";
 $admin_headers .= "Reply-To: " . $email . "\r\n";
-$admin_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 // メール送信（管理者向け）
+// mb_send_mail() は自動的に Content-Type と Transfer-Encoding を設定
 $mail_admin_result = mb_send_mail($to_email, $subject, $admin_message, $admin_headers);
 
 // ログメッセージ
@@ -223,9 +231,9 @@ $reply_message .= "━━━━━━━━━━━━━━━━━━━━�
 
 $reply_headers = "From: 三流 <noreply@mitsulu.style>\r\n";
 $reply_headers .= "Reply-To: mk@mitsulu.style\r\n";
-$reply_headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
 // 自動返信送信
+// mb_send_mail() は自動的に Content-Type と Transfer-Encoding を設定
 $mail_user_result = mb_send_mail($email, $reply_subject, $reply_message, $reply_headers);
 
 if (!$mail_user_result) {
