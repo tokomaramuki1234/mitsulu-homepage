@@ -21,6 +21,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 
+// 文字エンコーディング設定（重要！）
+mb_language('Japanese');
+mb_internal_encoding('UTF-8');
+
 // CORS設定（Vercelからのアクセスを許可）
 // 複数のオリジンに対応
 $allowed_origins = array(
