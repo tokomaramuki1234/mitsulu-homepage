@@ -29,8 +29,8 @@ const ContactSection = () => {
     setError('');
 
     try {
-      // Xserver サブドメイン（form.mitsulu.style）のPHPスクリプトに送信
-      const response = await fetch('https://form.mitsulu.style/contact.php', {
+      // Vercel Serverless Function（同一オリジン、CORS不要）
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
