@@ -124,7 +124,7 @@ const ServicesSection = () => {
       <h3 className={styles.serviceTitle}>{service.title}</h3>
       <p className={styles.serviceDescription}>{service.description}</p>
       <div className={styles.serviceTarget}>
-        <strong>対象:</strong> {service.targetIndustry}
+        {service.targetIndustry}
       </div>
       <div className={styles.serviceChallenge}>
         <i className="fas fa-exclamation-circle"></i>
