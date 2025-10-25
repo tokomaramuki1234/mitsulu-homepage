@@ -2,217 +2,271 @@ import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import SectionCta from './SectionCta';
-import Image from 'next/image';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Navigation } from 'swiper/modules';
 
-const proposals = [
-  {
-    id: 1,
-    number: 'Case - 1',
-    icon: 'fas fa-paint-brush',
-    title: '小さな会社のWebと紙の顔づくり',
-    description: 'Webサイトと名刺、チラシを一貫してデザイン・制作。オンラインとオフラインの印象を統一し、伝わりやすさを高めます。',
-    image: 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=600&h=400&fit=crop',
-    alt: 'Webと紙の顔づくり',
-    color: '#EAE33C' // デザイン・制作
+// 業種別ケーススタディデータ
+const caseStudies = {
+  construction: {
+    id: 'construction',
+    industry: '建設業',
+    icon: 'fas fa-hard-hat',
+    color: '#248EC6',
+    tagline: '築10年の顧客から工事受注を実現',
+    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=500&fit=crop',
+    alt: '建設業の現場',
+    summary: {
+      before: [
+        'ホームページを作ったが全く効果がなかった',
+        '紙ベースで見積もり・顧客管理をしていた',
+        '過去の顧客データが活用できていなかった'
+      ],
+      after: [
+        'ホームページの運用方法を習得し、問い合わせが来るようになった',
+        '顧客管理システムで築10年の顧客をリスト化',
+        'メンテナンスDMを一斉送信し、工事受注につながった',
+        '事務作業の効率化により時間削減'
+      ]
+    },
+    details: {
+      challenge: '以前、ホームページを制作したものの、誰からも問い合わせが来ず、アクセス解析も見ていたが結果が出ませんでした。見積書や顧客情報は紙のファイルで管理しており、過去の顧客に連絡を取ることも困難な状況でした。',
+      solution: [
+        '**ホームページの活用法を基礎から学習**: SEO対策、問い合わせフォームの最適化、施工事例の効果的な見せ方を習得',
+        '**顧客管理システムの導入**: Excel・Googleスプレッドシートを活用し、過去10年分の顧客データをデジタル化',
+        '**メンテナンス提案の仕組み化**: 築年数に応じた自動メンテナンス案内の設定'
+      ],
+      result: '顧客管理システムから「築10年」の顧客リストを抽出し、メンテナンス案内DMを一斉送信したところ、3件の工事受注に成功。また、ホームページからの問い合わせも月1〜2件入るようになり、営業活動の効率が大幅に向上しました。',
+      period: '導入期間: 約2ヶ月',
+      cost: '初期費用: 約15万円、月額サポート: 22,000円'
+    }
   },
-  {
-    id: 2,
-    number: 'Case - 2',
-    icon: 'fas fa-microphone',
-    title: '地域イベントの「なんでも屋」',
-    description: '会場設営からチラシ制作、広報SNS、当日の司会進行まで。人手不足の現場を、臨機応変にサポートします。',
-    image: 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&h=400&fit=crop',
-    alt: '地域イベントの企画運営',
-    color: '#248EC6' // ファシリテーション
+  nursing: {
+    id: 'nursing',
+    industry: '介護施設',
+    icon: 'fas fa-user-nurse',
+    color: '#CD2272',
+    tagline: 'シフト作成時間を80%削減',
+    image: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=800&h=500&fit=crop',
+    alt: '介護施設のスタッフ',
+    summary: {
+      before: [
+        'シフト作成に膨大な時間がかかっていた',
+        '従業員の希望を手作業で集計・調整',
+        'シフト変更の度に大混乱'
+      ],
+      after: [
+        '従業員の希望を入力するだけで自動的にシフトが完成',
+        'シフト作成時間が週10時間 → 週2時間に短縮',
+        '従業員の満足度も向上'
+      ]
+    },
+    details: {
+      challenge: '20名のスタッフのシフト作成に毎週10時間以上を費やしていました。Excelで手作業で調整しており、希望が重なった場合は個別に電話で調整。急な変更があると、また一から作り直しという状況でした。',
+      solution: [
+        '**シフト管理システムの導入**: Googleフォームで希望を収集、Googleスプレッドシートで自動調整',
+        '**制約条件の設定**: 必要人数、スキル、勤務時間の上限などを自動チェック',
+        '**スマホ対応**: スタッフが自分のスマホから希望を入力できる仕組み'
+      ],
+      result: 'シフト作成時間が週10時間から2時間に短縮（80%削減）。スタッフからも「希望が通りやすくなった」「変更がすぐわかる」と好評で、離職率も低下しました。',
+      period: '導入期間: 約1ヶ月',
+      cost: '初期費用: 約8万円、月額サポート: 22,000円'
+    }
   },
-  {
-    id: 3,
-    number: 'Case - 3',
-    icon: 'fas fa-users',
-    title: '社員研修＋実践ワークショップ',
-    description: 'AIツールやMicrosoft Officeの操作研修を、実際の課題解決ワークと組み合わせ。現場ですぐ使える知識を身につけられる場をつくります。',
-    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&h=400&fit=crop',
-    alt: '社員研修とワークショップ',
-    color: '#CD2272' // 企画・研修
-  },
-  {
-    id: 4,
-    number: 'Case - 4',
-    icon: 'fas fa-graduation-cap',
-    title: '外国人スタッフの日本語＋業務トレーニング',
-    description: '接客や現場マナーなど、実務に合わせた日本語指導を提供。多国籍チームの円滑な連携を支えます。',
-    image: 'https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&h=400&fit=crop',
-    alt: '外国人スタッフの日本語教育',
-    color: '#1B2B59' // 教育・講習
-  },
-  {
-    id: 5,
-    number: 'Case - 5',
-    icon: 'fas fa-mountain',
-    title: '地域観光のプロモーション企画',
-    description: '登山・観光案内・キャンプ体験などの体験型ツアーを企画し、Web・SNS発信までワンストップでサポートします。',
-    image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop',
-    alt: '地域観光のプロモーション',
-    color: '#208B3B' // 体験サポート
-  },
-  {
-    id: 6,
-    number: 'Case - 6',
-    icon: 'fas fa-laptop-code',
-    title: '中小企業のWeb運用まるごと代行',
-    description: 'ホームページ更新、SNS運用、簡単な写真撮影や文章修正も。手が回らない部分を補います。',
-    image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop',
-    alt: 'Web運用代行',
-    color: '#0A0F0F' // Web構築・開発・運用
-  },
-  {
-    id: 7,
-    number: 'Case - 7',
-    icon: 'fas fa-graduation-cap',
-    title: '教育現場のICTサポート',
-    description: '授業でのタブレット活用やAIツール導入、Office教育などを支援。先生と生徒の"わからない"の間をつなぎます。',
-    image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&h=400&fit=crop',
-    alt: 'ICTサポート',
-    color: '#1B2B59' // 教育・講習
-  },
-  {
-    id: 8,
-    number: 'Case - 8',
-    icon: 'fas fa-mountain',
-    title: '地域の空きスペース活用支援',
-    description: 'イベントやワークショップ、展示会の企画・広報・運営を一体的に支援。地域の人が集まる場づくりをお手伝いします。',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop',
-    alt: '空きスペース活用',
-    color: '#208B3B' // 体験サポート
-  },
-  {
-    id: 9,
-    number: 'Case - 9',
-    icon: 'fas fa-paint-brush',
-    title: '動画で伝える企業ストーリー',
-    description: '会社紹介や採用向け動画を、企画から編集まで柔軟に対応。効果的な映像制作を提案します。',
-    image: 'https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=600&h=400&fit=crop',
-    alt: '動画制作',
-    color: '#EAE33C' // デザイン・制作
-  },
-  {
-    id: 10,
-    number: 'Case - 10',
-    icon: 'fas fa-mountain',
-    title: 'キャンプ＆BBQ×学びのイベント企画',
-    description: '自然の中での交流会やチームビルディングを企画。遊びながら学べる、体験重視のプログラムをつくります。',
-    image: 'https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&h=400&fit=crop',
-    alt: 'キャンプイベント',
-    color: '#208B3B' // 体験サポート
+  restaurant: {
+    id: 'restaurant',
+    industry: '飲食業',
+    icon: 'fas fa-utensils',
+    color: '#EAE33C',
+    tagline: '営業ツールとしての統一デザイン',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop',
+    alt: '飲食店の店内',
+    summary: {
+      before: [
+        '普通の名刺しかなかった',
+        'ホームページ、チラシ、メニュー表のデザインがバラバラ',
+        'お店の雰囲気が伝わりにくかった'
+      ],
+      after: [
+        '営業ツールとしても使える綺麗なデザインの名刺',
+        'ホームページ、チラシ、メニュー表のデザインを統一',
+        'ブランドイメージが確立され、リピーター増加'
+      ]
+    },
+    details: {
+      challenge: '開店当初に作った名刺とホームページのデザインが古く、チラシやメニュー表も別々の業者に依頼していたため、統一感がありませんでした。「どんなお店なのか」が伝わりづらく、新規顧客獲得に苦労していました。',
+      solution: [
+        '**ブランドデザインの統一**: ロゴ、カラー、フォントを統一したデザインガイドライン作成',
+        '**営業ツール一式の制作**: 名刺、ホームページ、チラシ、メニュー表をワンストップで制作',
+        '**SNS運用サポート**: InstagramとFacebookでの発信方法もアドバイス'
+      ],
+      result: '統一感のあるデザインにより、「おしゃれなお店」という印象が定着。SNSでのシェアも増え、新規顧客が月20%増加。リピーター率も向上し、安定した経営につながっています。',
+      period: '導入期間: 約1.5ヶ月',
+      cost: '初期費用: 約20万円、月額サポート: なし（制作のみ）'
+    }
   }
-];
+};
 
 const ProposalsSection = () => {
   const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
+  const [selectedIndustry, setSelectedIndustry] = useState<'construction' | 'nursing' | 'restaurant'>('construction');
+  const [expandedCase, setExpandedCase] = useState<string | null>(null);
 
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 1024);
-    };
+  const selectedCase = caseStudies[selectedIndustry];
 
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  // SSR時はnullを返す
-  if (isMobile === null) {
-    return (
-      <section ref={ref} className={styles.proposalsSection}>
-        <div className={styles.container}>
-          <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
-            三流の強み ― 横断的なサポート
-          </h2>
-        </div>
-      </section>
-    );
-  }
-
-  const ProposalCard = ({ proposal, index }: { proposal: typeof proposals[0], index: number }) => (
-    <article
-      className={`${styles.proposalItem} ${
-        index % 2 === 1 ? styles.proposalItemReverse : ''
-      } ${isVisible ? styles.visible : ''}`}
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      <div className={styles.proposalImage}>
-        <img
-          src={proposal.image}
-          alt={proposal.alt}
-          width={600}
-          height={400}
-        />
-      </div>
-      <div className={styles.proposalContent}>
-        <h3 className={styles.proposalTitle}>
-          <span
-            className={styles.proposalNumber}
-            style={{ '--proposal-color': proposal.color } as React.CSSProperties & { '--proposal-color': string }}
-          >
-            <i className={proposal.icon}></i>
-            {proposal.number}
-          </span>
-          <span className={styles.proposalTitleText}>{proposal.title}</span>
-        </h3>
-        <p className={styles.proposalDescription}>{proposal.description}</p>
-      </div>
-    </article>
-  );
+  const toggleDetails = (caseId: string) => {
+    setExpandedCase(expandedCase === caseId ? null : caseId);
+  };
 
   return (
     <section ref={ref} className={styles.proposalsSection}>
       <div className={styles.container}>
         <h2 className={`${styles.sectionTitle} ${isVisible ? styles.visible : ''}`}>
-          三流の強み ― 横断的なサポート
+          業種別ケーススタディ
         </h2>
         <p className={`${styles.proposalsIntro} ${isVisible ? styles.visible : ''}`}>
-          幅広い分野に対応できるジェネラリストとして、<br />
-          様々なスキルを組み合わせ、<br />
-          お客様のニーズに柔軟に応えます。
+          実際の課題をどう解決したか。<br />
+          あなたの業種に近い事例をご覧ください。
         </p>
 
-        {/* PC表示: 交互レイアウト */}
-        {!isMobile && (
-          <div className={styles.proposalsList}>
-            {proposals.map((proposal, index) => (
-              <ProposalCard key={proposal.id} proposal={proposal} index={index} />
-            ))}
-          </div>
-        )}
+        {/* 業種選択ボタン */}
+        <div className={`${styles.industryButtons} ${isVisible ? styles.visible : ''}`}>
+          <button
+            className={`${styles.industryButton} ${selectedIndustry === 'construction' ? styles.active : ''}`}
+            onClick={() => setSelectedIndustry('construction')}
+            style={{ '--button-color': caseStudies.construction.color } as React.CSSProperties}
+          >
+            <i className={caseStudies.construction.icon}></i>
+            <span>建設業</span>
+          </button>
+          <button
+            className={`${styles.industryButton} ${selectedIndustry === 'nursing' ? styles.active : ''}`}
+            onClick={() => setSelectedIndustry('nursing')}
+            style={{ '--button-color': caseStudies.nursing.color } as React.CSSProperties}
+          >
+            <i className={caseStudies.nursing.icon}></i>
+            <span>介護施設</span>
+          </button>
+          <button
+            className={`${styles.industryButton} ${selectedIndustry === 'restaurant' ? styles.active : ''}`}
+            onClick={() => setSelectedIndustry('restaurant')}
+            style={{ '--button-color': caseStudies.restaurant.color } as React.CSSProperties}
+          >
+            <i className={caseStudies.restaurant.icon}></i>
+            <span>飲食業</span>
+          </button>
+        </div>
 
-        {/* タブレット・スマホ表示: スライダー */}
-        {isMobile && (
-          <div className={styles.proposalsSlider}>
-            <Swiper
-              modules={[Pagination, Navigation]}
-              spaceBetween={30}
-              slidesPerView={1}
-              pagination={{ clickable: true }}
-              navigation={true}
-              loop={false}
-              className={styles.proposalsSwiper}
-            >
-              {proposals.map((proposal, index) => (
-                <SwiperSlide key={proposal.id}>
-                  <ProposalCard proposal={proposal} index={index} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+        {/* ケーススタディ表示 */}
+        <div className={`${styles.caseStudyContainer} ${isVisible ? styles.visible : ''}`}>
+          <div className={styles.caseStudyHeader}>
+            <div className={styles.caseStudyImage}>
+              <img
+                src={selectedCase.image}
+                alt={selectedCase.alt}
+                width={800}
+                height={500}
+              />
+            </div>
+            <div className={styles.caseStudyHeaderContent}>
+              <h3 className={styles.caseStudyIndustry} style={{ color: selectedCase.color }}>
+                <i className={selectedCase.icon}></i>
+                {selectedCase.industry}
+              </h3>
+              <p className={styles.caseStudyTagline}>{selectedCase.tagline}</p>
+            </div>
           </div>
-        )}
-        
+
+          <div className={styles.caseStudyContent}>
+            <div className={styles.beforeAfter}>
+              <div className={styles.beforeColumn}>
+                <h4 className={styles.beforeAfterTitle}>
+                  <i className="fas fa-times-circle"></i>
+                  Before（導入前の課題）
+                </h4>
+                <ul className={styles.beforeAfterList}>
+                  {selectedCase.summary.before.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.afterColumn}>
+                <h4 className={styles.beforeAfterTitle}>
+                  <i className="fas fa-check-circle"></i>
+                  After（導入後の成果）
+                </h4>
+                <ul className={styles.beforeAfterList}>
+                  {selectedCase.summary.after.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            {/* アコーディオン（詳細） */}
+            <div className={styles.caseStudyAccordion}>
+              <button
+                className={`${styles.accordionButton} ${expandedCase === selectedCase.id ? styles.active : ''}`}
+                onClick={() => toggleDetails(selectedCase.id)}
+              >
+                <span>詳細を見る</span>
+                <i className={`fas fa-chevron-down ${expandedCase === selectedCase.id ? styles.rotate : ''}`}></i>
+              </button>
+              
+              {expandedCase === selectedCase.id && (
+                <div className={styles.accordionContent}>
+                  <div className={styles.detailSection}>
+                    <h5 className={styles.detailSectionTitle}>
+                      <i className="fas fa-exclamation-triangle"></i>
+                      抱えていた課題
+                    </h5>
+                    <p className={styles.detailSectionText}>{selectedCase.details.challenge}</p>
+                  </div>
+
+                  <div className={styles.detailSection}>
+                    <h5 className={styles.detailSectionTitle}>
+                      <i className="fas fa-lightbulb"></i>
+                      実施した解決策
+                    </h5>
+                    <ul className={styles.detailSolutionList}>
+                      {selectedCase.details.solution.map((item, index) => (
+                        <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className={styles.detailSection}>
+                    <h5 className={styles.detailSectionTitle}>
+                      <i className="fas fa-chart-line"></i>
+                      得られた成果
+                    </h5>
+                    <p className={styles.detailSectionText}>{selectedCase.details.result}</p>
+                  </div>
+
+                  <div className={styles.detailMeta}>
+                    <div className={styles.detailMetaItem}>
+                      <i className="fas fa-clock"></i>
+                      <span>{selectedCase.details.period}</span>
+                    </div>
+                    <div className={styles.detailMetaItem}>
+                      <i className="fas fa-yen-sign"></i>
+                      <span>{selectedCase.details.cost}</span>
+                    </div>
+                  </div>
+
+                  {/* アコーディオン内のCTAボタン */}
+                  <div className={styles.accordionCta}>
+                    <a href="#contact" className={styles.accordionCtaButton}>
+                      <i className="fas fa-envelope"></i>
+                      同じような課題でお困りですか？まずはお気軽にご相談ください
+                    </a>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
         <SectionCta 
-          text="その他、「こんなことはできる？」などのご相談も大歓迎！"
-          buttonText="まずはお気軽にご相談ください"
+          text="他にも様々な業種・課題に対応しています"
+          buttonText="あなたの課題を相談してみる"
         />
       </div>
     </section>
