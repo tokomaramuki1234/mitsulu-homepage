@@ -62,6 +62,17 @@ Xserver PHP（contact.php）
 - ✅ **送信先**: mk@mitsulu.style
 - ✅ **自動返信**: あり
 
+### アクセス解析設定（完了済み）
+
+- ✅ **Google Analytics 4 (GA4)**: 設置済み
+- ✅ **Tracking ID**: `G-8G3032S69R`
+- ✅ **設置場所**: `pages/index.tsx` (Head内にgtagスクリプト埋め込み)
+- ✅ **測定可能項目**:
+  - ページビュー
+  - イベントトラッキング
+  - コンバージョン測定
+  - ユーザー行動分析
+
 ---
 
 ## 🔧 CORS問題のトラブルシューティング
@@ -710,9 +721,9 @@ mitsulu-homepage/
 - [ ] ブログ機能（Markdown ベース）
 - [ ] 実績紹介ギャラリー（ポートフォリオ）
 - [ ] お客様の声・レビュー機能
-- [ ] お問い合わせフォーム（FormSpree/Netlify Forms）
+- [x] お問い合わせフォーム（Vercel API Route + Xserver PHP）
 - [ ] 料金シミュレーター
-- [ ] Google Analytics 導入
+- [x] Google Analytics 導入（**GA4 設置済み - Tracking ID: G-8G3032S69R**）
 - [ ] SEO 最適化（メタタグ、OGP 設定）
 
 ### Phase 4: マーケティング・運用（継続）
@@ -1108,7 +1119,7 @@ npm run build -- --no-cache
 
 ### 次のアクション
 
-- [ ] Google Analytics 4 設置（未設置の場合）
+- [x] Google Analytics 4 設置（**設置済み - Tracking ID: G-8G3032S69R**）
 - [ ] ベースラインKPI測定開始
 - [ ] Phase 1タスクの優先順位決定・実装開始
 
