@@ -10,43 +10,57 @@ const allServices = [
     icon: 'fas fa-microphone',
     color: '#248EC6', // メインカラー：Cyan
     title: 'ファシリテーション',
-    description: '会議や研修を前向きに進めるお手伝い'
+    description: '会議や研修を前向きに進めるお手伝い',
+    targetIndustry: '建設業・介護施設・飲食業',
+    challenge: '会議が長引く、意見がまとまらない'
   },
   {
     icon: 'fas fa-users',
     color: '#CD2272', // メインカラー：Magenta
     title: '企画・研修',
-    description: 'チームビルディングや社員研修の企画運営'
+    description: 'チームビルディングや社員研修の企画運営',
+    targetIndustry: '建設業・介護施設',
+    challenge: 'スタッフ教育の時間がない、定着率が低い'
   },
   {
     icon: 'fas fa-paint-brush',
     color: '#EAE33C', // メインカラー：Yellow
     title: 'デザイン・制作',
-    description: 'Web・チラシ・名刺・ポスター対応'
+    description: 'ホームページ・チラシ・名刺・ポスター対応',
+    targetIndustry: '建設業・飲食業',
+    challenge: '名刺とホームページのデザインがバラバラ'
   },
   {
     icon: 'fas fa-laptop-code',
     color: '#0A0F0F', // セミメインカラー：Black
-    title: 'Web構築・開発・運用',
-    description: 'Webサイト構築・SNS運用・HP更新'
+    title: 'ホームページ構築・運用',
+    description: 'ホームページ制作・更新・SNS運用',
+    targetIndustry: '建設業・飲食業',
+    challenge: 'ホームページを作ったが問い合わせが来ない'
   },
   {
     icon: 'fas fa-diagram-project',
     color: '#D1221A', // サブカラー：Red
     title: '進行管理',
-    description: '印刷・制作現場の調整、PMO業務'
+    description: '印刷・制作現場の調整、PMO業務',
+    targetIndustry: '建設業',
+    challenge: '複数の業者との調整に手間がかかる'
   },
   {
     icon: 'fas fa-graduation-cap',
     color: '#1B2B59', // サブカラー：Navy
     title: '教育・講習',
-    description: '日本語教育・Adobe操作・AI・Office・PC操作支援'
+    description: '日本語教育・Adobe操作・AI・Office・PC操作支援',
+    targetIndustry: '全業種',
+    challenge: 'パソコン操作が苦手、新しいツールが使えない'
   },
   {
     icon: 'fas fa-mountain',
     color: '#208B3B', // サブカラー：Green
     title: '体験サポート',
-    description: 'シュノーケリング・登山・観光案内・キャンプ＆BBQ・地域イベント企画'
+    description: 'シュノーケリング・登山・観光案内・キャンプ＆BBQ・地域イベント企画',
+    targetIndustry: '全業種',
+    challenge: 'チームビルディングイベントを企画したい'
   }
 ];
 
@@ -109,6 +123,13 @@ const ServicesSection = () => {
       </div>
       <h3 className={styles.serviceTitle}>{service.title}</h3>
       <p className={styles.serviceDescription}>{service.description}</p>
+      <div className={styles.serviceTarget}>
+        <strong>対象:</strong> {service.targetIndustry}
+      </div>
+      <div className={styles.serviceChallenge}>
+        <i className="fas fa-exclamation-circle"></i>
+        {service.challenge}
+      </div>
     </article>
   );
 

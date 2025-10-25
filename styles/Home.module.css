@@ -339,6 +339,39 @@
   font-size: 1rem;
   color: #666666;
   line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.serviceTarget {
+  font-size: 0.875rem;
+  color: #248EC6;
+  margin-bottom: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: rgba(36, 142, 198, 0.1);
+  border-radius: 4px;
+}
+
+.serviceTarget strong {
+  font-weight: 600;
+}
+
+.serviceChallenge {
+  font-size: 0.875rem;
+  color: #666666;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  text-align: left;
+  line-height: 1.5;
+  padding: 0.75rem;
+  background: #F9F9F9;
+  border-left: 3px solid #D1221A;
+}
+
+.serviceChallenge i {
+  color: #D1221A;
+  margin-top: 0.2rem;
+  flex-shrink: 0;
 }
 
 /* Services Slider for Mobile/Tablet */
