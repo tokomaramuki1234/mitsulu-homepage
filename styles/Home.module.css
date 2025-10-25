@@ -58,7 +58,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #FFFFFF;
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F7 100%);
+  position: relative;
 }
 
 .heroLogoText {
