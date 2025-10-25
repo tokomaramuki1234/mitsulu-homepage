@@ -9,6 +9,7 @@ const ContactSection = () => {
     email: '',
     phone: '',
     company: '',
+    plan: '',
     category: '',
     message: ''
   });
@@ -42,7 +43,7 @@ const ContactSection = () => {
 
       if (response.ok && result.success) {
         setSubmitted(true);
-        setFormData({ name: '', email: '', phone: '', company: '', category: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', company: '', plan: '', category: '', message: '' });
         // スクロールをフォーム上部に移動
         const contactSection = document.getElementById('contact');
         if (contactSection) {
@@ -156,6 +157,26 @@ const ContactSection = () => {
               </div>
 
               <div className={styles.formGroup}>
+                <label htmlFor="plan" className={styles.formLabel}>
+                  ご希望プラン <span className={styles.required}>*</span>
+                </label>
+                <select
+                  id="plan"
+                  name="plan"
+                  value={formData.plan}
+                  onChange={handleChange}
+                  required
+                  className={styles.formSelect}
+                >
+                  <option value="">選択してください</option>
+                  <option value="frontend">4時間相談プラン（¥10,000）</option>
+                  <option value="middleend">月額継続サポート（¥22,000/月）</option>
+                  <option value="backend">カスタムプラン（個別見積もり）</option>
+                  <option value="undecided">まだ決めていない</option>
+                </select>
+              </div>
+
+              <div className={styles.formGroup}>
                 <label htmlFor="category" className={styles.formLabel}>
                   お問い合わせ種類 <span className={styles.required}>*</span>
                 </label>
@@ -171,7 +192,7 @@ const ContactSection = () => {
                   <option value="facilitation">ファシリテーション</option>
                   <option value="planning">企画・研修</option>
                   <option value="design">デザイン・制作</option>
-                  <option value="web">Web構築・開発・運用</option>
+                  <option value="web">ホームページ構築・運用</option>
                   <option value="pm">進行管理</option>
                   <option value="education">教育・講習</option>
                   <option value="experience">体験サポート</option>
