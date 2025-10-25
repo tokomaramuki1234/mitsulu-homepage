@@ -631,6 +631,7 @@
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 15px;
   padding: 1.5rem;
   min-height: 60px; /* タップ領域最小値（Apple HIG: 44px以上） */
@@ -657,12 +658,33 @@
   background-color: #FAF5EB;
 }
 
-.accordionHeader i:first-child {
+.accordionHeaderContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.accordionHeaderTitle {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.accordionHeaderTitle i {
   font-size: 1.5rem;
 }
 
-.accordionHeader span {
-  flex: 1;
+.accordionHeaderTitle span {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.accordionIndustry {
+  font-size: 0.875rem;
+  color: #248EC6;
+  font-weight: 500;
+  padding-left: 2.5rem; /* Align with title text after icon */
 }
 
 .accordionIcon {
