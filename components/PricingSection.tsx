@@ -22,7 +22,7 @@ const PricingSection = () => {
   const pricingPlans = [
     {
       id: 'frontend',
-      category: 'フロントエンド（入口商材）',
+      category: '',
       title: '4時間相談プラン',
       price: '¥10,000',
       unit: '（税込）',
@@ -41,7 +41,7 @@ const PricingSection = () => {
     },
     {
       id: 'middleend',
-      category: 'ミドルエンド',
+      category: '',
       title: '月額継続サポート',
       price: '¥22,000',
       unit: '/月（税込）',
@@ -60,7 +60,7 @@ const PricingSection = () => {
     },
     {
       id: 'backend',
-      category: 'バックエンド（本命商品）',
+      category: '',
       title: 'カスタムプラン',
       price: '個別見積もり',
       unit: '',
@@ -102,10 +102,12 @@ const PricingSection = () => {
     >
       {plan.isFeatured && <div className={styles.pricingBadge}>一番人気</div>}
       
-      <div className={styles.pricingCategory}>
-        <i className={plan.icon}></i>
-        <span>{plan.category}</span>
-      </div>
+      {plan.category && (
+        <div className={styles.pricingCategory}>
+          <i className={plan.icon}></i>
+          <span>{plan.category}</span>
+        </div>
+      )}
 
       <div className={styles.pricingHeader}>
         <h3 className={styles.pricingTitle}>{plan.title}</h3>
