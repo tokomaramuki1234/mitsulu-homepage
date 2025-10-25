@@ -25,15 +25,21 @@ const HeroSection = () => {
       <div className={styles.container}>
         <div className={`${styles.heroCenter} ${visible ? styles.visible : ''}`}>
           <h1 className={styles.heroTagline}>
-            小さな組織の手が回らないお困りごとを横断的に解決するIT系の何でも屋さん
+            建設業・介護施設・飲食業など、<br />
+            従業員5〜20名の小さな会社の<br />
+            ITに関するお困りごとをまるごと解決
           </h1>
+          <p className={styles.heroSubtitle}>
+            「ホームページを作ったけど効果がない」「業務効率化したいけど何から始めればいいかわからない」<br />
+            そんなお悩みを、ITが苦手な経営者様でも安心してお任せいただけるようサポートします。
+          </p>
           <div className={styles.heroButtons}>
             <a
               href="#contact"
               className={styles.ctaButtonPrimary}
               aria-label="お問い合わせフォームへ移動"
             >
-              <i className="fas fa-paper-plane"></i> 無料で相談してみる
+              <i className="fas fa-paper-plane"></i> まずは気軽に相談してみる
             </a>
           </div>
         </div>
