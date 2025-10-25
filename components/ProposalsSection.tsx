@@ -11,7 +11,7 @@ const caseStudies = {
     icon: 'fas fa-hard-hat',
     color: '#248EC6',
     tagline: '築10年の顧客から工事受注を実現',
-    image: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1590389015158-951b7052f25f?w=800&h=500&fit=crop&q=80',
     alt: '建設業の現場',
     summary: {
       before: [
@@ -44,7 +44,7 @@ const caseStudies = {
     icon: 'fas fa-user-nurse',
     color: '#CD2272',
     tagline: 'シフト作成時間を80%削減',
-    image: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=800&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&h=500&fit=crop&q=80',
     alt: '介護施設のスタッフ',
     summary: {
       before: [
@@ -76,7 +76,7 @@ const caseStudies = {
     icon: 'fas fa-utensils',
     color: '#EAE33C',
     tagline: '営業ツールとしての統一デザイン',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=500&fit=crop',
+    image: 'https://images.unsplash.com/photo-1559339352-11d035aa65de?w=800&h=500&fit=crop&q=80',
     alt: '飲食店の店内',
     summary: {
       before: [
